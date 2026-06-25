@@ -530,6 +530,7 @@
                             <li><a href="#apply-pose">Apply Pose</a></li>
                             <li><a href="#bake-multilayer">Bake to Multi-Layer</a></li>
                             <li><a href="#bake-shapekey">Bake to Shapekey Mesh</a></li>
+							<li><a href="#rebuild-pose">Re-Build Pose</a></li>
                         </ul>
                     </li>
                     <li>
@@ -670,6 +671,8 @@
             </p>
             <p style="margin-bottom: 20px;">
                 You will now have a multi-layer + multi-res setup & ready to go. the old multilayer will be hidden and given "_old" prefix to its name.
+			 <p><span style="font-size: 1.2em;">⚠️</span> <strong>Note:</strong> Depending on the size of the mesh, this process might take a while. Open the console beforehand if you would like to track the progress (<strong>Window >> Toggle System Console</strong>)</p>
+
                 <br>
             </p>
         </ol>
@@ -732,7 +735,11 @@
 
         <!-- 3g. Bake to Shapekey Mesh -->
         <h4 id="bake-shapekey">Bake to Shapekey Mesh</h4>
-        <p>Bakes the current pose to a shape key on the mesh</p>
+        <p>Bakes the current pose as a shapekey on a new shapekey mesh (with "_shapekey" prefix added to its name). Useful for when you quickly want to showcase different poses</p>
+		
+		<!-- 3h. Re-Build Pose -->
+        <h4 id="rebuild-pose">Re-Build Pose</h4>
+        <p>Rebuilds the current pose indices order. Only available when needed (after 'Delete Lower' or 'Convert to Multi-Layer' (Case 3) were called)</p>
 
     </div><!-- End of Reshape Method note box -->
 
@@ -770,10 +777,12 @@
         <!-- 3f. Delete Lower -->
         <h4 id="delete-lower">Delete Lower</h4>
         <p>Deletes the lowest subdivision level of the multires mesh, while preserving shape keys & poses. Use when the multires mesh base geometry is not enough to make shapekey poses</p>
-
+		<p><span style="font-size: 1.2em;">ℹ️</span> Any 'Reshape' Poses would have to be rebuilt (with the 'Re-build Pose' function)</p>
         <p><span style="font-size: 1.2em;">⚠️</span> <strong>Note:</strong> Depending on the size of the mesh, this process might take a while. Open the console beforehand if you would like to track the progress (<strong>Window >> Toggle System Console</strong>)</p>
 
         <!-- Multi-res Advanced Operations -->
+		<br>
+		<br>
         <h3 id="multires-advanced">Multi-Layer Operations</h3>
 
         <!-- Create Multi-Layer -->
@@ -828,8 +837,8 @@
     <hr style="margin: 40px 0; border: none; border-top: 2px solid #e0e7ef;">
 
     <p style="text-align: center; color: #888; font-size: 0.9em;">
-        <strong>Simple Sculpt Layers (SSLv2)</strong> — Professional Non-Destructive Sculpt Layer System for Blender<br>
-        <span style="font-size: 0.85em;">Documentation generated for SSLv2 v0.7</span>
+        <strong>Simple Sculpt Layers Plus (SSLP)</strong> — Professional Non-Destructive Sculpt Layer System for Blender<br>
+        <span style="font-size: 0.85em;">Documentation generated for SSLP v1.0</span>
     </p>
 
 </div>
