@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Sculpt Layers (SSLv2) - Documentation</title>
+    <style>
+	
+	
+		.image-float-left {
+			float: left;
+			margin: 0 20px 10px 0;
+			max-width: 40%;
+			height: auto;
+			border-radius: 8px;
+			border: 1px solid #e0e7ef;
+		}
+
+		.image-float-right {
+			float: right;
+			margin: 0 0 10px 20px;
+			max-width: 40%;
+			height: auto;
+			border-radius: 8px;
+			border: 1px solid #e0e7ef;
+		}
+
+		/* Clearfix for floating */
+		.clearfix::after {
+			content: "";
+			clear: both;
+			display: table;
+		}
+        /* Modern CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: #2d2d2d;
+            background: #f5f7fa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            padding: 40px;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 2.5em;
+            color: #1a1a1a;
+            border-bottom: 4px solid #4a90d9;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            font-size: 2em;
+            color: #2d2d2d;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e0e7ef;
+        }
+
+        h3 {
+            font-size: 1.2em;
+            color: #3d3d3d;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        h4 {
+            font-size: 1.1em;
+            color: #4a4a4a;
+            margin-top: 15px;
+            margin-bottom: 8px;
+        }
+
+        h5 {
+            font-size: 1.1em;
+            color: #5a5a5a;
+            margin-top: 15px;
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: #444;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin: 15px 0 15px 30px;
+            color: #444;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* Code */
+        code {
+            background: #f0f2f5;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9em;
+            color: #d63384;
+        }
+
+        pre {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+
+        pre code {
+            background: transparent;
+            color: #d4d4d4;
+            padding: 0;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95em;
+        }
+
+        th {
+            background: #4a90d9;
+            color: white;
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e7ef;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        tr:hover {
+            background: #f0f4f8;
+        }
+
+        /* Boxes */
+        .note {
+            background: #e8f4fd;
+            border-left: 4px solid #4a90d9;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .warning {
+            background: #fef3e8;
+            border-left: 4px solid #f5a623;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .error {
+            background: #fde8e8;
+            border-left: 4px solid #d63031;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .success {
+            background: #e8f5e9;
+            border-left: 4px solid #27ae60;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        /* Tags */
+        .tag {
+            display: inline-block;
+            background: #4a90d9;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+
+        .tag-green {
+            background: #27ae60;
+        }
+
+        .tag-orange {
+            background: #f5a623;
+        }
+
+        .tag-red {
+            background: #d63031;
+        }
+
+        .tag-purple {
+            background: #8e44ad;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            background: #e0e7ef;
+            color: #2d2d2d;
+            padding: 2px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 500;
+            margin: 2px 0;
+        }
+
+        /* TOC */
+        .toc {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        .toc li {
+            padding: 2px 0;
+            border-bottom: 1px solid #e8ecf0;
+        }
+
+        .toc li:last-child {
+            border-bottom: none;
+        }
+
+        .toc a {
+            color: #4a90d9;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+        }
+
+        .toc ul ul {
+            padding-left: 20px;
+            margin: 0;
+        }
+
+        .toc ul ul li {
+            border-bottom: none;
+            padding: 1px 0;
+            font-weight: normal;
+        }
+
+        .toc ul ul ul {
+            padding-left: 15px;
+        }
+
+        .toc ul ul ul li {
+            font-size: 0.95em;
+            color: #555;
+            padding: 1px 0;
+        }
+
+        /* Grid */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e0e7ef;
+        }
+
+        .card h4 {
+            margin-top: 0;
+            color: #2d2d2d;
+        }
+
+        /* Placeholder styling - KEPT for installation and bugs sections */
+        .placeholder {
+            background: #fff8e7;
+            border: 2px dashed #f5a623;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            color: #8a7a5a;
+        }
+
+        .placeholder::before {
+            content: "📝 ";
+            font-weight: bold;
+        }
+
+        .empty-section {
+            background: #fafafa;
+            padding: 15px 20px;
+            border-radius: 6px;
+            margin: 10px 0;
+            color: #999;
+            font-style: italic;
+            border: 1px solid #eee;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            h2 {
+                font-size: 1.6em;
+            }
+
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 0.85em;
+            }
+
+            th, td {
+                padding: 8px 10px;
+            }
+        }
+
+        /* Print */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                padding: 20px;
+            }
+
+            .toc {
+                break-inside: avoid;
+            }
+
+            .card {
+                break-inside: avoid;
+            }
+
+            .placeholder {
+                border: 1px solid #ccc;
+                background: #f9f9f9;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f0f2f5;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #c0c8d0;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a0a8b0;
+        }
+
+        /* Misc */
+        .center {
+            text-align: center;
+        }
+
+        .mt-20 {
+            margin-top: 20px;
+        }
+
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+
+        .inline-code {
+            background: #f0f2f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+
+        .file-name {
+            background: #2d2d2d;
+            color: #f0f2f5;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9em;
+            display: inline-block;
+            margin: 4px 0;
+        }
+
+        .icon-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .icon-list li::before {
+            content: "▸ ";
+            color: #4a90d9;
+            font-weight: bold;
+        }
+
+        .operator-name {
+            font-family: monospace;
+            background: #f0f2f5;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- Header -->
+    <h1>Simple Sculpt Layers Plus</h1>
+    <p style="font-size: 1.2em; color: #5a5a5a;">
+        Professional Non-Destructive Sculpt Layer System for Blender
+    </p>
+
+    <div style="margin: 10px 0 20px 0;">
+        <span class="badge">Version 1.0</span>
+        <span class="badge">Blender 4.5+</span>
+    </div>
+
+    <!-- Overview -->
+    <div class="note">
+        <strong>📖 Overview:</strong>
+        Simple Sculpt Layers Plus (SSLP) emulates a professional sculpt layer system by storing vertex offsets relative to a true base mesh.
+        Provides non-destructive sculpting workflows similar to ZBrush, with support for multi-resolution sculpting,
+        quick poses storage, and shape key management.
+    </div>
+
+    <!-- Table of Contents -->
+    <div class="toc">
+        <h3 style="margin-top: 0; margin-bottom: 10px;">📑 Table of Contents</h3>
+        <ul>
+            <li><a href="#installation"><strong>1. Installation</strong></a></li>
+            <li>
+                <a href="#multilayer"><strong>2. Multi-layer</strong></a>
+                <ul>
+                    <li><a href="#set-base">Set Base Mesh</a></li>
+                    <li><a href="#add-layer">Add Sculpt Layer</a></li>
+                    <li><a href="#delete-layer">Delete Sculpt Layer</a></li>
+                    <li><a href="#move-layer">Move Sculpt Layer Up/Down</a></li>
+					<li><a href="#merge-down">Merge Down</a></li>
+                    <li><a href="#toggle-visibility">Toggle Visibility</a></li>
+                    <li><a href="#set-strength">Set Layer Strength</a></li>
+                    <li><a href="#enable-layer">Enable Layer</a></li>
+                    <li><a href="#cut-mask">Cut Mask to New Layer</a></li>
+                    <li><a href="#remesh">Remesh</a></li>
+                    <li><a href="#eraser-brush">Eraser Brush</a></li>
+                    <li><a href="#mask-erase">Mask Erase</a></li>
+                    <li>
+					<li><a href="#create-multires">Create Multi-res</a></li>
+					<li><a href="#convert-multires">Convert to Multi-res</a></li>
+					<li><a href="#rebuild-retopology">Rebuild from Retopology</a></li>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#multires"><strong>3. Multi-res</strong></a>
+                <ul>
+                    <li>
+                        <a href="#quick-poses-reshape"><strong>'Reshape' Method</strong></a>
+                        <ul>
+                            <li><a href="#add-pose">Add Pose</a></li>
+                            <li><a href="#delete-pose">Delete Pose</a></li>
+                            <li><a href="#clear-basemesh">Clear to Basemesh</a></li>
+                            <li><a href="#store-pose">Store Pose</a></li>
+                            <li><a href="#apply-pose">Apply Pose</a></li>
+                            <li><a href="#bake-multilayer">Bake to Multi-Layer</a></li>
+                            <li><a href="#bake-shapekey">Bake to Shapekey Mesh</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#quick-poses-shapekeys"><strong>'Shape Keys' Method</strong></a>
+                        <ul>
+                            <li><a href="#add-shapekey">Add Shape Key</a></li>
+                            <li><a href="#delete-shapekey">Delete Shape Key</a></li>
+                            <li><a href="#toggle-shapekey-mute">Toggle Shape Key Mute</a></li>
+                            <li><a href="#restore-shapekeys">Restore Shape Keys</a></li>
+                            <li><a href="#clear-shapekeys">Clear All ShapeKeys</a></li>
+                            <li><a href="#delete-lower">Delete Lower</a></li>
+                        </ul>
+                    </li>
+                    <li>
+
+                            <li><a href="#create-multilayer">Create Multi-Layer</a></li>
+                            <li><a href="#convert-multilayer">Convert to Multi-Layer</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li><a href="#bugs-issues"><strong>4. Bugs &amp; Issues</strong></a></li>
+        </ul>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 1. INSTALLATION -->
+    <!-- ============================================================ -->
+    <h2 id="installation">📦 1. Installation</h2>
+    <ol>
+        <li>Download the addon files (either <code>SSLP.zip</code> or <code>SSL.py</code>)</li>
+        <li>In Blender, go to <strong>Edit → Preferences → Add-ons</strong></li>
+        <li>Click <strong>Install from Disk</strong> and select the <code>SSLP.zip</code> folder or the <code>SSL.py</code> file</li>
+        <li>Enable the addon by checking the box next to <strong>Simple Sculpt Layers Plus</strong></li>
+        <li>The panel will appear in the <strong>Viewport Side Panel (N) → My Tab</strong></li>
+        <p>• <strong>Note:</strong> you can change which tab the panel will be stored in inside the addon settings</p>
+    </ol>
+
+
+    <!-- ============================================================ -->
+    <!-- 2. MULTILAYER -->
+    <!-- ============================================================ -->
+
+    <h2 id="multilayer">🧱 2. Multi-layer</h2>
+
+    <div class="note clearfix" style="overflow: hidden;">
+        <img src="Multi-Layer.png" 
+             alt="Multi-layer system" 
+             class="image-float-right">
+        
+        <strong>Overview:</strong> The multilayer system allows you to stack sculpting passes non-destructively.
+        Each layer stores vertex offsets relative to the base mesh.
+        
+        <!-- 2a. Set Base Mesh -->
+        <h3 id="set-base">Set Base Mesh</h3>
+        <p>Stores the current mesh state as the foundation for all sculpt layers. Every mesh is required to have a base mesh before user can start working with the Multi-Layer panel</p>
+
+
+        <!-- 2b. Add Sculpt Layer -->
+        <h3 id="add-layer">Add Sculpt Layer</h3>
+        <p>Creates a new empty layer at the top of the stack, and enables it</p>
+		<p><span style="font-size: 1.2em;">ℹ️</span> Click on the new layer name to rename it</p>
+		
+		<!-- 2g. Enable Layer -->
+        <h3 id="enable-layer">Enable Layer</h3>
+        <p>Sets the active layer for storing/erasing sculpt changes (offset data)</p>
+        <p><span style="font-size: 1.2em;">ℹ️</span> Only one layer can be enabled at a time</p>
+
+
+        <!-- 2c. Delete Sculpt Layer -->
+        <h3 id="delete-layer">Delete Sculpt Layer</h3>
+        <p>Removes the selected layer and its associated vertex offset data</p>
+
+        <!-- 2d. Move Sculpt Layer Up/Down -->
+        <h3 id="move-layer">Move Sculpt Layer Up/Down</h3>
+        <p>Reorders layers in the stack. Use when you want to merge down a two specific layers.</p>
+
+		<!-- 2e. Merge Down -->
+        <h3 id="merge-down">Merge Down</h3>
+        <p>Merges the enabled layer with the one below</p>
+
+        <!-- 2e. Toggle Visibility -->
+        <h3 id="toggle-visibility">Toggle Visibility</h3>
+        <p>Shows or hides the layer in the viewport</p>
+        <p><span style="font-size: 1.2em;">ℹ️</span> Hidden layers cannot be enabled</p>
+
+        <!-- 2f. Set Layer Strength -->
+        <h3 id="set-strength">Set Layer Strength</h3>
+        <p>Controls how much the layer contributes to the overall mesh (1-100%)</p>
+
+
+        <!-- 2h. Cut Mask to New Layer -->
+        <h3 id="cut-mask">Cut Mask to New Layer</h3>
+        <p>Extracts the layer offsets of the enabled layer - that lie under the masked area - into a new layer</p>
+		<p><span style="font-size: 1.2em;">ℹ️</span> Sensitive to mask strength</p>
+
+
+        <!-- 2i. Remesh -->
+        <h3 id="remesh">Remesh</h3>
+        <p>Uses Blender's remesh operator in a way that is compatible with Mult-Layer</p>
+		<p><span style="font-size: 1.2em;">ℹ️</span> You can assign this button to a hotkey, and even replace the default 'Remesh' keyboard shortcut</p>
+
+
+        <!-- 2j. Eraser Brush -->
+        <h3 id="eraser-brush">Eraser Brush</h3>
+        <p>Creates and activates a specialized 'LAYER' type brush that deletes only the offsets of the enabled layer</p>
+
+
+        <!-- 2k. Mask Erase -->
+        <h3 id="mask-erase">Mask Erase</h3>
+        <p>Much like the 'Eraser Brush' - Removes any offsets of an enabled layer, that lies within a masked area. Use when you need a precised & controlled deletion</p>
+		<p><span style="font-size: 1.2em;">ℹ️</span> Sensitive to mask strength</p>
+
+        <!-- 2l. Advanced Operations -->
+        <h3 id="multilayer-advanced">Multi-res Operations</h3>
+
+        <!-- Create Multi-res -->
+        <h4 id="create-multires">Create Multi-res</h4>
+        <p>Creates a corresponding multi-res mesh to work with your multi-layer mesh. Only available when no corresponding multi-res mesh is found</p>
+
+        <!-- Convert to Multi-res -->
+        <h4 id="convert-multires">Convert to Multi-res</h4>
+        <p>Converts your multi-layer mesh to its multi-res counterpart, using the 'Reshape' function of the Multires modifier</p>
+
+		<!-- Rebuild from Retopology -->
+		<h4 id="rebuild-retopology">Rebuild from Retopology</h4>
+		<p>Rebuilds the multi-layer using a retopology mesh /w shrinkwrap modifier. Useful for when 'Create Multi-res' gives you a multi-res mesh with 0 levels, due to the multi-layer having bad topology:</p>
+
+		<div style="margin: 10px 0 15px 20px; text-align: center;">
+			<img src="bad-topology.gif" 
+				 alt="Bad topology example" 
+				 style="max-width: 60%; height: auto; border-radius: 6px; border: 1px solid #e0e7ef;">
+			<p style="font-size: 0.85em; color: #888; margin-top: 4px;"><em>Example of bad topology that causes Create Multi-res to fail</em></p>
+		</div>
+
+		<p>For best results follow these 3 steps:</p>
+
+		<ol style="margin-left: 20px;">
+			<li style="margin-bottom: 20px;">
+				<strong>Step 1:</strong> [Describe what to do]
+				<br>
+				<img src="step1.gif" alt="Step 1" style="max-width: 60%; height: auto; border-radius: 6px; border: 1px solid #e0e7ef; margin-top: 8px;">
+			</li>
+			<li style="margin-bottom: 20px;">
+				<strong>Step 2:</strong> [Describe what to do]
+				<br>
+				<img src="step2.gif" alt="Step 2" style="max-width: 60%; height: auto; border-radius: 6px; border: 1px solid #e0e7ef; margin-top: 8px;">
+			</li>
+			<li style="margin-bottom: 20px;">
+				<strong>Step 3:</strong> [Describe what to do]
+				<br>
+				<img src="step3.gif" alt="Step 3" style="max-width: 60%; height: auto; border-radius: 6px; border: 1px solid #e0e7ef; margin-top: 8px;">
+			</li>
+		</ol>
+
+
+    </div><!-- End of note box -->
+
+    <!-- ============================================================ -->
+    <!-- 3. MULTI-RES -->
+    <!-- ============================================================ -->
+    <h2 id="multires">🔍 3. Multi-res</h2>
+
+    <!-- ==== Reshape Method Box ==== -->
+    <div class="note clearfix" style="overflow: hidden;">
+        <img src="Multi-Res_Reshape.png" 
+             alt="Multi-res Reshape method" 
+             class="image-float-right">
+        
+        <strong>Overview:</strong> The 'Reshape' method keeps copies of the multires and recalls them using the 'Reshape' function of the multires modifier. Use when you would like to save different iterations made on your multires mesh, whenever the <strong>multires level is > 0</strong>
+
+        <!-- 3a. Add Pose -->
+        <h4 id="add-pose">Add Pose</h4>
+        <p>Creates a new empty pose slot</p>
+        <p><span style="font-size: 1.2em;">ℹ️</span> Click on the new pose name to rename it.</p>
+
+        <!-- 3b. Delete Pose -->
+        <h4 id="delete-pose">Delete Pose</h4>
+        <p>Removes the selected pose and its data</p>
+
+        <!-- 3c. Clear to Basemesh -->
+        <h4 id="clear-basemesh">Clear to Basemesh</h4>
+        <p>Resets the mesh to its base state, removing all pose deformations</p>
+
+        <!-- 3d. Store Pose -->
+        <h4 id="store-pose">Store Pose</h4>
+        <p>Saves the current mesh deformation as a pose</p>
+
+        <!-- 3e. Apply Pose -->
+        <h4 id="apply-pose">Apply Pose</h4>
+        <p>Applies a stored pose to the current mesh</p>
+
+        <!-- 3f. Bake to Multi-Layer -->
+        <h4 id="bake-multilayer">Bake to Multi-Layer</h4>
+        <p>Bakes the current pose into a sculpt layer.</p>
+        <p><span style="font-size: 1.2em;">ℹ️</span> In addition, this reloads the layer status that the multi-layer had, when the pose was first stored. This is done so that the newly baked layer, would not re-store the offsets that are already stored in previous layers</p>
+
+        <!-- 3g. Bake to Shapekey Mesh -->
+        <h4 id="bake-shapekey">Bake to Shapekey Mesh</h4>
+        <p>Bakes the current pose to a shape key on the mesh</p>
+
+    </div><!-- End of Reshape Method note box -->
+
+    <!-- ==== Shape Keys Method Box ==== -->
+    <div class="note clearfix" style="overflow: hidden;">
+        <img src="Multi-Res_Shapekey.png" 
+             alt="Multi-res Shape Keys method" 
+             class="image-float-right">
+        
+        <strong>Overview:</strong> The Shape Keys method uses Blender's native shape key system for pose storage. Use when you would like to save different iterations made on your multires mesh, whenever the <strong>multires level is = 0</strong>
+
+        <!-- 3a. Add Shape Key -->
+        <h4 id="add-shapekey">a. Add Shape Key</h4>
+        <p>Creates a new shape key & sets the multires level to 0.</p>
+        <p><span style="font-size: 1.2em;">ℹ️</span> Click on the new shapekey name to rename it.</p>
+
+        <!-- 3b. Delete Shape Key -->
+        <h4 id="delete-shapekey">b. Delete Shape Key</h4>
+        <p>Removes the selected shape key</p>
+
+        <!-- 3c. Toggle Shape Key Mute -->
+        <h4 id="toggle-shapekey-mute">c. Toggle Shape Key Mute</h4>
+        <p>Mutes or unmutes the selected shape key.</p>
+
+        <!-- 3d. Restore Shape Keys -->
+        <h4 id="restore-shapekeys">d. Restore Shape Keys</h4>
+        <p>Restores all shape keys from the the stored '_Shapekeys##' mesh. If '_Shapekeys##' mesh is present, you can use this function when you would like to reload your shapekeys.</p>
+        <p><u><strong>*</strong> '<strong>_Shapekeys##</strong>' <strong>mesh</strong></u> - is created automatically when 'Delete Lower' or 'Convert to Multilayer' (Case 3) functions are called. This mesh keeps and restore the user saved shape keys, which would otherwise get deleted in the process</p>
+
+        <!-- 3e. Clear All ShapeKeys -->
+        <h4 id="clear-shapekeys">e. Clear All ShapeKeys</h4>
+        <p>Removes all shape keys from the mesh & deletes the stored '_Shapekeys##' mesh. Use if the stored '_Shapekeys##' gets corrupted</p>
+
+        <!-- 3f. Delete Lower -->
+        <h4 id="delete-lower">f. Delete Lower</h4>
+        <p>Deletes the lowest subdivision level of the multires mesh, while preserving shape keys & poses. Use when the multires mesh base geometry is not enough to make shapekey poses</p>
+
+        <p><span style="font-size: 1.2em;">⚠️</span> <strong>Note:</strong> Depending on the size of the mesh, this process might take a while. Open the console beforehand if you would like to track the progress (<strong>Window >> Toggle System Console</strong>)</p>
+
+        <!-- Multi-res Advanced Operations -->
+        <h3 id="multires-advanced">Multi-Layer Operations</h3>
+
+        <!-- Create Multi-Layer -->
+        <h4 id="create-multilayer">Create Multi-Layer</h4>
+        <p>Creates a corresponding a multi-layer setup for the current mesh. Only available when mesh has a multires modifier & no corresponding multi-layer</p>
+
+        <!-- Convert to Multi-Layer -->
+        <h4 id="convert-multilayer">Convert to Multi-Layer</h4>
+        <p>Switches back to Multi-Layer. Only available when mesh has a multires modifier & a corresponding multi-layer</p>
+
+    </div><!-- End of Shape Keys Method note box -->
+
+    <!-- ============================================================ -->
+    <!-- 4. BUGS & ISSUES -->
+    <!-- ============================================================ -->
+    <h2 id="bugs-issues">🐛 4. Bugs &amp; Issues</h2>
+
+    <div class="error">
+        <strong>⚠️ Known Issues:</strong>
+        <ul>
+            <li><strong>Issue:</strong> [Add known issue here]</li>
+            <li><strong>Workaround:</strong> [Describe workaround]</li>
+            <li><strong>Status:</strong> [Reported/Fixed/Pending]</li>
+        </ul>
+    </div>
+
+    <div class="placeholder">
+        <strong>Document known bugs and issues here:</strong><br>
+        - Issue description<br>
+        - Steps to reproduce<br>
+        - Workarounds<br>
+        - Fix version<br>
+        - Related GitHub issues
+    </div>
+
+    <div class="warning">
+        <strong>📋 Report Issues:</strong><br>
+        If you encounter any bugs not listed here, please report them with:<br>
+        - Blender version<br>
+        - Addon version<br>
+        - Steps to reproduce<br>
+        - Expected vs actual behavior<br>
+        - System information
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- FOOTER -->
+    <!-- ============================================================ -->
+    <hr style="margin: 40px 0; border: none; border-top: 2px solid #e0e7ef;">
+
+    <p style="text-align: center; color: #888; font-size: 0.9em;">
+        <strong>Simple Sculpt Layers (SSLv2)</strong> — Professional Non-Destructive Sculpt Layer System for Blender<br>
+        <span style="font-size: 0.85em;">Documentation generated for SSLv2 v0.7</span>
+    </p>
+
+</div>
+
+</body>
+</html>
