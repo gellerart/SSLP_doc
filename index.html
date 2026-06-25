@@ -599,7 +599,7 @@
 
         <!-- 2d. Move Sculpt Layer Up/Down -->
         <h3 id="move-layer">Move Sculpt Layer Up/Down</h3>
-        <p>Reorders layers in the stack. Use when you want to merge down a two specific layers.</p>
+        <p>Moves enabled layer up/down in the stack. Use when you want to merge down two specific layers</p>
 
         <!-- 2e. Merge Down -->
         <h3 id="merge-down">Merge Down</h3>
@@ -621,7 +621,7 @@
 
         <!-- 2i. Remesh -->
         <h3 id="remesh">Remesh</h3>
-        <p>Uses Blender's remesh operator in a way that is compatible with Mult-Layer</p>
+        <p>Uses Blender's Sculpt mode remesh operator in a way that is compatible with Mult-Layer</p>
         <p><span style="font-size: 1.2em;">ℹ️</span> You can assign this button to a hotkey, and even replace the default 'Remesh' keyboard shortcut</p>
 
         <!-- 2j. Eraser Brush -->
@@ -659,7 +659,7 @@
 
         <ol style="margin-left: 20px;">
             <p style="margin-bottom: 20px;">
-                <strong>Step 1:</strong> Once you have create a retopology mesh, make sure it has 2 modifiers: <strong>Multires</strong> & <strong>Shrinkwrap</strong> (in that order). Subdivide the multires as needed in order for the shrinkwrap to capture all the details of you multi-layer
+                <strong>Step 1:</strong> Once you have create a retopology mesh, make sure it has 2 modifiers: <strong>Multires</strong> & <strong>Shrinkwrap</strong> (in that order). Subdivide the multires as needed in order for the shrinkwrap to capture all the details of your multi-layer
                 <br>
                 <img src="modifiers.gif" alt="Step 1" style="max-width: 60%; height: auto; border-radius: 6px; border: 1px solid #e0e7ef; margin-top: 8px;">
             </p>
@@ -681,6 +681,17 @@
     <!-- ============================================================ -->
     <h2 id="multires">🔍 3. Multi-res</h2>
 
+    <!-- ==== Multi-res Summary Box ==== -->
+    <div class="note clearfix" style="overflow: hidden;">
+        <img src="Multi-Res_Summary.png" 
+             alt="Multi-res summary" 
+             class="image-float-right">
+        
+        <strong>Overview:</strong> The Multi-res system in SSLP allows you to work with subdivision levels while maintaining your Multi-Layer for later edits. It provides two complementary methods for storing and managing different poses and iterations of your mesh
+        
+    </div><!-- End of Summary note box -->
+
+
     <!-- ==== Reshape Method Box ==== -->
     <div class="note clearfix" style="overflow: hidden;">
         <img src="Multi-Res_Reshape.png" 
@@ -693,7 +704,7 @@
         <!-- 3a. Add Pose -->
         <h4 id="add-pose">Add Pose</h4>
         <p>Creates a new empty pose slot</p>
-        <p><span style="font-size: 1.2em;">ℹ️</span> Click on the new pose name to rename it.</p>
+        <p><span style="font-size: 1.2em;">ℹ️</span> Click on the new pose name to rename it</p>
 
         <!-- 3b. Delete Pose -->
         <h4 id="delete-pose">Delete Pose</h4>
@@ -705,15 +716,18 @@
 
         <!-- 3d. Store Pose -->
         <h4 id="store-pose">Store Pose</h4>
-        <p>Saves the current mesh deformation as a pose</p>
+        <p>Saves the current multi-res mesh deformation as a pose. Also saves the current *multi-layer status</p>
+		<p><u><strong>*</strong> '<strong>Multi-Layer Status</strong>'</u> - is the current status of the multi-layer's layer stack (layer's visibility & strength) </p>
+		 <p><span style="font-size: 1.2em;">ℹ️</span> Store pose is will remember the 'Sculpt' subdivision level the multi-res modifier had, when pose was stored</p>
 
         <!-- 3e. Apply Pose -->
         <h4 id="apply-pose">Apply Pose</h4>
-        <p>Applies a stored pose to the current mesh</p>
+        <p>Loads up a stored pose to the current multi-res mesh, using the 'Reshape' function. Also will load up the multi-layer status to the multi-layer </p>
+		<p><span style="font-size: 1.2em;">ℹ️</span> Apply pose will load the pose in whatever 'Sculpt' subdivision level it was stored in</p>
 
         <!-- 3f. Bake to Multi-Layer -->
         <h4 id="bake-multilayer">Bake to Multi-Layer</h4>
-        <p>Bakes the current pose into a sculpt layer.</p>
+        <p>Bakes the current pose into a sculpt layer</p>
         <p><span style="font-size: 1.2em;">ℹ️</span> In addition, this reloads the layer status that the multi-layer had, when the pose was first stored. This is done so that the newly baked layer, would not re-store the offsets that are already stored in previous layers</p>
 
         <!-- 3g. Bake to Shapekey Mesh -->
@@ -733,8 +747,8 @@
 
         <!-- 3a. Add Shape Key -->
         <h4 id="add-shapekey">Add Shape Key</h4>
-        <p>Creates a new shape key & sets the multires level to 0.</p>
-        <p><span style="font-size: 1.2em;">ℹ️</span> Click on the new shapekey name to rename it.</p>
+        <p>Creates a new shape key & sets the multires level to 0</p>
+        <p><span style="font-size: 1.2em;">ℹ️</span> Click on the new shapekey name to rename it</p>
 
         <!-- 3b. Delete Shape Key -->
         <h4 id="delete-shapekey">Delete Shape Key</h4>
@@ -742,11 +756,11 @@
 
         <!-- 3c. Toggle Shape Key Mute -->
         <h4 id="toggle-shapekey-mute">Toggle Shape Key Mute</h4>
-        <p>Mutes or unmutes the selected shape key.</p>
+        <p>Mutes or unmutes the selected shape key</p>
 
         <!-- 3d. Restore Shape Keys -->
         <h4 id="restore-shapekeys">Restore Shape Keys</h4>
-        <p>Restores all shape keys from the the stored '_Shapekeys##' mesh. If '_Shapekeys##' mesh is present, you can use this function when you would like to reload your shapekeys.</p>
+        <p>Restores all shape keys from the the stored *'_Shapekeys##' mesh. If '_Shapekeys##' mesh is present, you can use this function when you would like to reload your shapekeys</p>
         <p><u><strong>*</strong> '<strong>_Shapekeys##</strong>' <strong>mesh</strong></u> - is created automatically when 'Delete Lower' or 'Convert to Multilayer' (Case 3) functions are called. This mesh keeps and restore the user saved shape keys, which would otherwise get deleted in the process</p>
 
         <!-- 3e. Clear All ShapeKeys -->
@@ -788,31 +802,26 @@
     <div class="error">
         <strong>⚠️ Known Issues:</strong>
         <ul>
-            <li><strong>Issue:</strong> [Add known issue here]</li>
-            <li><strong>Workaround:</strong> [Describe workaround]</li>
-            <li><strong>Status:</strong> [Reported/Fixed/Pending]</li>
+            <li><strong>Issue:</strong> Symmetrizing the mesh corrupts the sync with corresponding multi-layer/multi-res counterpart, as well as the multi-layer setup</li>
+			<li><strong>Workaround:</strong> None so far</li>
+			<li><strong>Issue:</strong> Voxel Remesh corrupts the multi-layer setup</li>
+			<li><strong>Workaround:</strong> Use the 'Remesh' button from the multi-layer panel</li>
         </ul>
     </div>
+	
 
-    <div class="placeholder">
-        <strong>Document known bugs and issues here:</strong><br>
-        - Issue description<br>
-        - Steps to reproduce<br>
-        - Workarounds<br>
-        - Fix version<br>
-        - Related GitHub issues
-    </div>
 
     <div class="warning">
         <strong>📋 Report Issues:</strong><br>
-        If you encounter any bugs not listed here, please report them with:<br>
+        Please report any issues you might encounter to <a href="mailto:flowertrain@outlook.com?subject=SSLP_HELP">✉️ flowertrain@outlook.com</a>, with the 'SSLP_HELP' as the subject<br> Please try to include:<br>
         - Blender version<br>
         - Addon version<br>
         - Steps to reproduce<br>
-        - Expected vs actual behavior<br>
-        - System information
+        - Console log<br>
+        - Any Blender errors that come up<br>
+        - Fully unclipped images/videos of blender while the bug occurs
     </div>
-
+	
     <!-- ============================================================ -->
     <!-- FOOTER -->
     <!-- ============================================================ -->
