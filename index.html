@@ -481,7 +481,8 @@
 
     <div style="margin: 10px 0 20px 0;">
         <span class="badge">Version 1.0</span>
-        <span class="badge">Blender 4.5+</span>
+        <span class="badge">Blender 4.5</span>
+		<span class="badge">Blender 5.0</span>
     </div>
 
     <!-- Overview -->
@@ -543,7 +544,7 @@
                             <li><a href="#clear-shapekeys">Clear All ShapeKeys</a></li>
                             <li><a href="#delete-lower">Delete Lower</a></li>
                             <li><a href="#create-multilayer">Create Multi-Layer</a></li>
-                            <li><a href="#convert-multilayer">Convert to Multi-Layer</a></li>
+                            <li><a href="#convert-multilayer">Switch to Multi-Layer</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -562,7 +563,7 @@
         <li>Click <strong>Install from Disk</strong> and select the <code>SSLP.zip</code> file</li>
         <li>Enable the addon by checking the box next to <strong>Simple Sculpt Layers Plus</strong></li>
         <li>The panel will appear in the <strong>Viewport Side Panel (N) → My Tab</strong></li>
-        <p><span style="font-size: 1.2em;">ℹ️</span><strong>Note:</strong> You can change in which tab the addon panel would be, inside the addon preferences</p>
+        <p><span style="font-size: 1.2em;">ℹ️</span><strong>Note:</strong> Inside the addon preferences, you can decide in which tab the panel would be</p>
     </ol>
 
 
@@ -686,10 +687,7 @@
 
     <!-- ==== Multi-res Summary Box ==== -->
     <div class="note clearfix" style="overflow: hidden;">
-        <img src="Multi-Res_Summary.png" 
-             alt="Multi-res summary" 
-             class="image-float-right">
-        
+
         <strong>Overview:</strong> The Multi-res system in SSLP allows you to work with subdivision levels while maintaining your Multi-Layer for later edits. It provides two complementary methods for storing and managing different poses and iterations of your mesh
         
     </div><!-- End of Summary note box -->
@@ -739,7 +737,7 @@
 		
 		<!-- 3h. Re-Build Pose -->
         <h4 id="rebuild-pose">Re-Build Pose</h4>
-        <p>Rebuilds the current pose indices order. Only available when needed (after 'Delete Lower' or 'Convert to Multi-Layer' (Case 3) were called)</p>
+        <p>Rebuilds the current pose indices order. Only available when needed (after 'Delete Lower' or 'Switch to Multi-Layer' (Case 3) were called)</p>
 
     </div><!-- End of Reshape Method note box -->
 
@@ -768,7 +766,7 @@
         <!-- 3d. Restore Shape Keys -->
         <h4 id="restore-shapekeys">Restore Shape Keys</h4>
         <p>Restores all shape keys from the the stored *'_Shapekeys##' mesh. If '_Shapekeys##' mesh is present, you can use this function when you would like to reload your shapekeys</p>
-        <p><u><strong>*</strong> '<strong>_Shapekeys##</strong>' <strong>mesh</strong></u> - is created automatically when 'Delete Lower' or 'Convert to Multilayer' (Case 3) functions are called. This mesh keeps and restore the user saved shape keys, which would otherwise get deleted in the process</p>
+        <p><u><strong>*</strong> '<strong>_Shapekeys##</strong>' <strong>mesh</strong></u> - is created automatically when 'Delete Lower' or 'Switch to Multi-layer' (Case 3) functions are called. This mesh keeps and restore the user saved shape keys, which would otherwise get deleted in the process</p>
 
         <!-- 3e. Clear All ShapeKeys -->
         <h4 id="clear-shapekeys">Clear All ShapeKeys</h4>
@@ -790,7 +788,7 @@
         <p>Creates a corresponding a multi-layer setup for the current mesh. Only available when mesh has a multires modifier & no corresponding multi-layer</p>
 
         <!-- Convert to Multi-Layer -->
-        <h4 id="convert-multilayer">Convert to Multi-Layer</h4>
+        <h4 id="convert-multilayer">Switch to Multi-Layer</h4>
         <p>Switches back to Multi-Layer. Only available when mesh has a multires modifier & a corresponding multi-layer</p>
 		<p>This function runs under 3 different cases:</p>
 		<p><strong>Case 1:</strong></p>
@@ -822,13 +820,13 @@
 
     <div class="warning">
         <strong>📋 Report Issues:</strong><br>
-        Please report any issues you might encounter to <a href="mailto:flowertrain@outlook.com?subject=SSLP_HELP">✉️ flowertrain@outlook.com</a>, with the 'SSLP_HELP' as the subject<br> Please try to include:<br>
+        Please report any issues you might encounter to <a href="mailto:flowertrain@outlook.com?subject=SSLP_HELP">✉️ flowertrain@outlook.com</a>, with 'SSLP_HELP' as the subject<br> Please try to include:<br>
         - Blender version<br>
         - Addon version<br>
         - Steps to reproduce<br>
         - Console log<br>
         - Any Blender errors that come up<br>
-        - Fully unclipped images/videos of blender while the bug occurs
+        - Fully unclipped images/videos of Blender while the bug occurs
     </div>
 	
     <!-- ============================================================ -->
