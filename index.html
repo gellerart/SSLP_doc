@@ -6,7 +6,11 @@
     <title>Simple Sculpt Layers (SSLv2) - Documentation</title>
     <style>
 	
-	
+		
+		.custom_underline {
+		text-decoration: underline;
+		}
+		
 		.image-float-left {
 			float: left;
 			margin: 0 20px 10px 0;
@@ -74,7 +78,7 @@
         }
 
         h3 {
-            font-size: 1.2em;
+            font-size: 1.3em;
             color: #3d3d3d;
             margin-top: 20px;
             margin-bottom: 10px;
@@ -483,6 +487,7 @@
         <span class="badge">Version 1.0</span>
         <span class="badge">Blender 4.5</span>
 		<span class="badge">Blender 5.0</span>
+		<span class="badge">Blender 5.2</span>
     </div>
 
     <!-- Overview -->
@@ -502,36 +507,43 @@
                 <a href="#multilayer"><strong>2. Multi-layer</strong></a>
                 <ul>
                     <li><a href="#set-base">Set Base Mesh</a></li>
+					<li><a href="#auto-store">Auto-Store</a></li>
                     <li><a href="#add-layer">Add Sculpt Layer</a></li>
+					<li><a href="#rename-layer">Rename Layer</a></li>
+					<li><a href="#mask-layer">Mask Layer</a></li>
                     <li><a href="#delete-layer">Delete Sculpt Layer</a></li>
-                    <li><a href="#move-layer">Move Sculpt Layer Up/Down</a></li>
-                    <li><a href="#merge-down">Merge Down</a></li>
-                    <li><a href="#toggle-visibility">Toggle Visibility</a></li>
+					
+					<li><a href="#enable-layer">Enable Layer</a></li>
+					<li><a href="#toggle-visibility">Toggle Visibility</a></li>
                     <li><a href="#set-strength">Set Layer Strength</a></li>
-                    <li><a href="#enable-layer">Enable Layer</a></li>
+
+                    <li><a href="#move-layer">Move Sculpt Layer Up/Down</a></li>
+					<li><a href="#merge-down">Merge Visible</a></li>
+                    <li><a href="#merge-down">Merge Down</a></li>
+					<li><a href="#duplicate">Duplicate Layer</a></li>
                     <li><a href="#cut-mask">Cut Mask to New Layer</a></li>
-                    <li><a href="#remesh">Remesh</a></li>
-                    <li><a href="#eraser-brush">Eraser Brush</a></li>
+					<li><a href="#bake-multires">Bake from Multires</a></li>
+					<li><a href="#bake-shapekey">Bake to Shapekey</a></li>
+					<li><a href="#blur">Blur Layer</a></li>
                     <li><a href="#mask-erase">Mask Erase</a></li>
-                    <li><a href="#create-multires">Create Multi-res</a></li>
-                    <li><a href="#convert-multires">Convert to Multi-res</a></li>
-                    <li><a href="#rebuild-retopology">Rebuild from Retopology</a></li>
+					<li><a href="#store-changes">Store Changes</a></li>
+					<li><a href="#refresh-layers">Refresh Layers</a></li>
+                    <li><a href="#geonode">Construct Geonode Tools</a></li>
                 </ul>
             </li>
             <li>
-                <a href="#multires"><strong>3. Multi-res</strong></a>
+                <a href="#multires"><strong>3. Quick Poses</strong></a>
                 <ul>
                     <li>
                         <a href="#quick-poses-reshape"><strong>'Reshape' Method</strong></a>
                         <ul>
                             <li><a href="#add-pose">Add Pose</a></li>
                             <li><a href="#delete-pose">Delete Pose</a></li>
-                            <li><a href="#clear-basemesh">Clear to Basemesh</a></li>
+                            <li><a href="#clear-basemesh">Reset to Basemesh</a></li>
                             <li><a href="#store-pose">Store Pose</a></li>
                             <li><a href="#apply-pose">Apply Pose</a></li>
-                            <li><a href="#bake-multilayer">Bake to Multi-Layer</a></li>
-                            <li><a href="#bake-shapekey">Bake to Shapekey Mesh</a></li>
-							<li><a href="#rebuild-pose">Re-Build Pose</a></li>
+							<li><a href="#refresh-poses">Refresh Pose List</a></li>
+
                         </ul>
                     </li>
                     <li>
@@ -540,16 +552,31 @@
                             <li><a href="#add-shapekey">Add Shape Key</a></li>
                             <li><a href="#delete-shapekey">Delete Shape Key</a></li>
                             <li><a href="#toggle-shapekey-mute">Toggle Shape Key Mute</a></li>
-                            <li><a href="#restore-shapekeys">Restore Shape Keys</a></li>
+                            <li><a href="#restore-shapekeys">Refresh Shape Keys</a></li>
                             <li><a href="#clear-shapekeys">Clear All ShapeKeys</a></li>
+							<li><a href="#solo">Solo Shapekey</a></li>
                             <li><a href="#delete-lower">Delete Lower</a></li>
-                            <li><a href="#create-multilayer">Create Multi-Layer</a></li>
-                            <li><a href="#convert-multilayer">Switch to Multi-Layer</a></li>
                         </ul>
                     </li>
                 </ul>
             </li>
-            <li><a href="#bugs-issues"><strong>4. Bugs &amp; Issues</strong></a></li>
+			
+			<li>
+                <a href="#sync"><strong>4. Sync Panel</strong></a>
+                <ul>
+                    <li>
+                        <ul>
+                            <li><a href="#info">Multi-res/Multi-Layer Info</a></li>
+                            <li><a href="#create-multires">Create Multi-res</a></li>
+                            <li><a href="#convert-multires">Convert to Multires</a></li>
+                            <li><a href="#switch-multires">Switch to Multires</a></li>
+                            <li><a href="#multires-advanced">Create Multi-Layer</a></li>
+							<li><a href="#refresh-poses">Refresh Pose List</a></li>
+
+                        </ul>
+                    </li>
+			
+            <li><a href="#bugs-issues"><strong>5. Bugs &amp; Issues</strong></a></li>
         </ul>
     </div>
 
@@ -558,11 +585,11 @@
     <!-- ============================================================ -->
     <h2 id="installation">📦 1. Installation</h2>
     <ol>
-        <li>Download the addon (<code>SSLP.zip</code>)</li>
+        <li>Download the addon (<code>Simple_Sculpt_Layers_Plus.zip</code>)</li>
         <li>In Blender, go to <strong>Edit → Preferences → Add-ons</strong></li>
-        <li>Click <strong>Install from Disk</strong> and select the <code>SSLP.zip</code> file</li>
-        <li>Enable the addon by checking the box next to <strong>Simple Sculpt Layers Plus</strong></li>
-        <li>The panel will appear in the <strong>Viewport Side Panel (N) → My Tab</strong></li>
+        <li>Click <strong>Install from Disk</strong> and select the <code>Simple_Sculpt_Layers_Plus.zip</code> file</li>
+        <li>Make sure to enable the addon by checking the box next to <strong>Simple Sculpt Layers Plus</strong></li>
+        <li>The panel will appear in the <strong>Viewport Side Panel (N) → Sculpt Layers +</strong> (in Sculpt Mode)</li>
         <p><span style="font-size: 1.2em;">ℹ️</span><strong>Note:</strong> Inside the addon preferences, you can decide in which tab the panel would be</p>
     </ol>
 
@@ -585,97 +612,87 @@
         <h3 id="set-base">Set Base Mesh</h3>
         <p>Stores the current mesh state as the foundation for all sculpt layers. Every mesh is required to have a base mesh before user can start working with the Multi-Layer panel</p>
 
+		<h3 id="auto-store">Auto-Store</h3>
+		<p>Auto stores the selected layer's data - only if changes were detected</p>
+
         <!-- 2b. Add Sculpt Layer -->
         <h3 id="add-layer">Add Sculpt Layer</h3>
         <p>Creates a new empty layer at the top of the stack, and enables it</p>
-        <p><span style="font-size: 1.2em;">ℹ️</span> Click on the new layer name to rename it</p>
         
+		<h3 id="rename-layer">Rename Layer</h3>
+		<p>Click on the pen 🖋️ icon next to each layer, to change its name</p>
+		
+		<h3 id="mask-layer">Mask Layer</h3>
+		<p>Click on the mask [●] icon next to each layer, to mask only the vertices that are affected by that layer</p>
+		
         <!-- 2g. Enable Layer -->
-        <h3 id="enable-layer">Enable Layer</h3>
-        <p>Sets the active layer for storing/erasing sculpt changes (offset data)</p>
-        <p><span style="font-size: 1.2em;">ℹ️</span> Only one layer can be enabled at a time</p>
-
-        <!-- 2c. Delete Sculpt Layer -->
-        <h3 id="delete-layer">Delete Sculpt Layer</h3>
-        <p>Removes the selected layer and its associated vertex offset data</p>
-
-        <!-- 2d. Move Sculpt Layer Up/Down -->
-        <h3 id="move-layer">Move Sculpt Layer Up/Down</h3>
-        <p>Moves enabled layer up/down in the stack. Use when you want to merge down two specific layers</p>
-
-        <!-- 2e. Merge Down -->
-        <h3 id="merge-down">Merge Down</h3>
-        <p>Merges the enabled layer with the one below</p>
-
-        <!-- 2e. Toggle Visibility -->
+        <h3 id="enable-layer">Toggle Layer</h3>
+        <p>Click on the checkbox ☑ next to each layer to set it as the active (selected) layer</p>
+        <p><span style="font-size: 1.2em;">ℹ️</span> Only one layer can be selected at a time</p>
+		
+		 <!-- 2e. Toggle Visibility -->
         <h3 id="toggle-visibility">Toggle Visibility</h3>
-        <p>Shows or hides the layer in the viewport</p>
-        <p><span style="font-size: 1.2em;">ℹ️</span> Hidden layers cannot be enabled</p>
+        <p>Click on the eye 👁 icon to show or hides that layer in the viewport</p>
+        <p><span style="font-size: 1.2em;">ℹ️</span> ALT + click on the eye icon to isolate the layer</p>
+		<p><span style="font-size: 1.2em;">⠀⠀</span> ALT + click again to restore visibility status of layer stack</p>
 
         <!-- 2f. Set Layer Strength -->
         <h3 id="set-strength">Set Layer Strength</h3>
-        <p>Controls how much the layer contributes to the overall mesh (1-100%)</p>
+        <p>Click on the percentage <strong>%</strong> figure next to each layer, to control how much that layer will contributes to the overall mesh</p>
+		<p><span style="font-size: 1.2em;">ℹ️ </span><strong>0%</strong> to <strong>100%</strong> is the soft limit. However, you can type in any value between <strong>-1000%</strong> to <strong>1000%</strong> </p>
 
+
+        <!-- 2c. Delete Sculpt Layer -->
+        <h3 id="delete-layer">Delete Sculpt Layer</h3>
+        <p>Removes the selected layer and its associated vertex offset data (attribute)</p>
+
+        <!-- 2d. Move Sculpt Layer Up/Down -->
+        <h3 id="move-layer">Move Sculpt Layer Up/Down</h3>
+        <p>Moves selected layer up/down in the stack. Use when you want to merge down two specific layers</p>
+
+		<!-- 2e. Merge Visible -->
+        <h3 id="merge-visible">Merge Visible</h3>
+        <p>Merges all the visible layers in the stack with the selected layer</p>
+
+        <!-- 2e. Merge Down -->
+        <h3 id="merge-down">Merge Down</h3>
+        <p>Merges the selected layer with the one below</p>
+		
+		<!-- Duplicate Layer -->
+		<h3 id="duplicate">Duplicate Layer</h3>
+        <p>Duplicates the selected layer</p>
+		
         <!-- 2h. Cut Mask to New Layer -->
         <h3 id="cut-mask">Cut Mask to New Layer</h3>
-        <p>Extracts the layer offsets of the enabled layer - that lie under the masked area - into a new layer</p>
+        <p>Extracts the selected layer's data - that lies within the masked area - into a new layer</p>
         <p><span style="font-size: 1.2em;">ℹ️</span> Sensitive to mask strength</p>
+		
+		<!-- Bake from Multires -->
+		<h3 id="bake-multires">Bake from Multires</h3>
+        <p>Bakes the current Multi-res mesh (if exists) into a new layer</p>
+		<p><span style="font-size: 1.2em;">ℹ️</span> The visbility status of the layer stack will affect the baked result. This is done purposefully, so the user can choose which comprising part of the multires he wants to isolate into a new layer (since after converting the multilayer to multires: the <strong>multires = the sum of all visible layers</strong>). Especially useful if changes were made to the multires mesh, that user wants to capture in layer form, or if user wants to bake the multires mesh to a shapekey mesh</p>
 
-        <!-- 2i. Remesh -->
-        <h3 id="remesh">Remesh</h3>
-        <p>Uses Blender's Sculpt mode remesh operator in a way that is compatible with Mult-Layer</p>
-        <p><span style="font-size: 1.2em;">ℹ️</span> You can assign this button to a hotkey, and even replace the default 'Remesh' keyboard shortcut</p>
+		<!-- Bake to Shapekey -->
+		<h3 id="bake-shapekey">Bake to Shapekey</h3>
+        <p>Bakes the current Multi-Layer mesh into a shapekey within a new mesh (with a "_shapekey" suffix added to its name)</p>
+		
+		<h3 id="blur">Blur Layer</h3>
+        <p>Blurs the selected layer</p>
+		
+        <!-- 2j. Mask Erase -->
+        <h3 id="mask-erase">Erase Masked Area</h3>
+        <p>Deletes all the data of a selected layer, that is found within the masked area</p>
+		<p><span style="font-size: 1.2em;">ℹ️</span> Sensitive to mask strength</p>
+		
+		<h3 id="store-changes">Store Changes</h3>
+        <p>Store any changes made to the selected layer. Use if Auto-store is disabled</p>
+		
+		<h3 id="refresh-layers">Refresh Layers</h3>
+        <p>Refreshes the layer UI and current mesh</p>
 
-        <!-- 2j. Eraser Brush -->
-        <h3 id="eraser-brush">Eraser Brush</h3>
-        <p>Creates and activates a specialized 'LAYER' type brush that deletes only the offsets of the enabled layer</p>
+		<h3 id="geonode">Construct Geonodes Tools</h3>
+        <p>Constructs all geonode tools needed for SSLP to work. If a geonode tool got corrupted for some reason, user can delete it and call this function</p>
 
-        <!-- 2k. Mask Erase -->
-        <h3 id="mask-erase">Mask Erase</h3>
-        <p>Much like the 'Eraser Brush' - Removes any offsets of an enabled layer, that lies within a masked area. Use when you need a precised & controlled deletion</p>
-        <p><span style="font-size: 1.2em;">ℹ️</span> Sensitive to mask strength</p>
-
-        <!-- 2l. Advanced Operations -->
-        <h3 id="multilayer-advanced">Multi-res Operations</h3>
-
-        <!-- Create Multi-res -->
-        <h4 id="create-multires">Create Multi-res</h4>
-        <p>Creates a corresponding multi-res mesh to work with your multi-layer mesh. Only available when no corresponding multi-res mesh is found</p>
-
-        <!-- Convert to Multi-res -->
-        <h4 id="convert-multires">Convert to Multi-res</h4>
-        <p>Converts your multi-layer mesh to its multi-res counterpart, using the 'Reshape' function of the Multires modifier</p>
-
-        <!-- Rebuild from Retopology -->
-        <h4 id="rebuild-retopology">Rebuild from Retopology</h4>
-        <p>Rebuilds the multi-layer using a retopology mesh /w shrinkwrap modifier. Useful for when 'Create Multi-res' gives you a multi-res mesh with 0 levels, due to the multi-layer having bad topology:</p>
-
-        <div style="margin: 10px 0 15px 20px; text-align: center;">
-            <img src="bad_topology.gif" 
-                 alt="Bad topology example" 
-                 style="max-width: 60%; height: auto; border-radius: 6px; border: 1px solid #e0e7ef;">
-            <p style="font-size: 0.85em; color: #888; margin-top: 4px;"><em>Example of bad topology that causes Create Multi-res to fail</em></p>
-        </div>
-
-        <p>For best results follow these steps:</p>
-
-        <ol style="margin-left: 20px;">
-            <p style="margin-bottom: 20px;">
-                <strong>Step 1:</strong> Once you have create a retopology mesh, make sure it has 2 modifiers: <strong>Multires</strong> & <strong>Shrinkwrap</strong> (in that order). Subdivide the multires as needed in order for the shrinkwrap to capture all the details of your multi-layer
-                <br>
-                <img src="modifiers.gif" alt="Step 1" style="max-width: 60%; height: auto; border-radius: 6px; border: 1px solid #e0e7ef; margin-top: 8px;">
-            </p>
-            <p style="margin-bottom: 20px;">
-                <strong>Step 2:</strong> Make sure each layer of the multi-layer is shrinkwrapped properly by the retopology mesh. Then, simply click the '<strong>Rebuild From Retopology</strong>' button and select your retopology mesh.
-                <br>
-                <img src="final.gif" alt="Step 2" style="max-width: 60%; height: auto; border-radius: 6px; border: 1px solid #e0e7ef; margin-top: 8px;">
-            </p>
-            <p style="margin-bottom: 20px;">
-                You will now have a multi-layer + multi-res setup & ready to go. the old multilayer will be hidden and given "_old" prefix to its name.
-			 <p><span style="font-size: 1.2em;">⚠️</span> <strong>Note:</strong> Depending on the size of the mesh, this process might take a while. Open the console beforehand if you would like to track the progress (<strong>Window >> Toggle System Console</strong>)</p>
-
-                <br>
-            </p>
         </ol>
 
     </div><!-- End of note box -->
@@ -683,12 +700,12 @@
     <!-- ============================================================ -->
     <!-- 3. MULTI-RES -->
     <!-- ============================================================ -->
-    <h2 id="multires">🔍 3. Multi-res</h2>
+    <h2 id="multires">🕺 3. Quick Poses</h2>
 
     <!-- ==== Multi-res Summary Box ==== -->
     <div class="note clearfix" style="overflow: hidden;">
 
-        <strong>Overview:</strong> The Multi-res system in SSLP allows you to work with subdivision levels while maintaining your Multi-Layer for later edits. It provides two complementary methods for storing and managing different poses and iterations of your mesh
+        <strong>Overview:</strong> The Quick Poses panel in SSLP takes advantage of the Multires modifier to allow the user to quickly create & manage different poses - without the need to rig the mesh. It provides two complementary methods to do so:
         
     </div><!-- End of Summary note box -->
 
@@ -712,32 +729,23 @@
         <p>Removes the selected pose and its data</p>
 
         <!-- 3c. Clear to Basemesh -->
-        <h4 id="clear-basemesh">Clear to Basemesh</h4>
-        <p>Resets the mesh to its base state, removing all pose deformations</p>
+        <h4 id="clear-basemesh">Reset to Basemesh</h4>
+        <p>Resets the mesh back to base mesh</p>
 
         <!-- 3d. Store Pose -->
         <h4 id="store-pose">Store Pose</h4>
-        <p>Saves the current multi-res mesh deformation as a pose. Also saves the current *multi-layer status</p>
-		<p><u><strong>*</strong> '<strong>Multi-Layer Status</strong>'</u> - is the current status of the multi-layer's layer stack (layer's visibility & strength) </p>
-		 <p><span style="font-size: 1.2em;">ℹ️</span> Store pose is will remember the 'Sculpt' subdivision level the multi-res modifier had, when pose was stored</p>
-
+        <p>Saves the current multi-res mesh as a pose</p>
+	
         <!-- 3e. Apply Pose -->
         <h4 id="apply-pose">Apply Pose</h4>
-        <p>Loads up a stored pose to the current multi-res mesh, using the 'Reshape' function. Also will load up the multi-layer status to the multi-layer </p>
-		<p><span style="font-size: 1.2em;">ℹ️</span> Apply pose will load the pose in whatever 'Sculpt' subdivision level it was stored in</p>
-
-        <!-- 3f. Bake to Multi-Layer -->
-        <h4 id="bake-multilayer">Bake to Multi-Layer</h4>
-        <p>Bakes the current pose into a sculpt layer</p>
-        <p><span style="font-size: 1.2em;">ℹ️</span> In addition, this reloads the layer status that the multi-layer had, when the pose was first stored. This is done so that the newly baked layer, would not re-store the offsets that are already stored in previous layers</p>
-
-        <!-- 3g. Bake to Shapekey Mesh -->
-        <h4 id="bake-shapekey">Bake to Shapekey Mesh</h4>
-        <p>Bakes the current pose as a shapekey on a new shapekey mesh (with "_shapekey" prefix added to its name). Useful for when you quickly want to showcase different poses</p>
+        <p>Loads back the stored pose</p>
 		
-		<!-- 3h. Re-Build Pose -->
-        <h4 id="rebuild-pose">Re-Build Pose</h4>
-        <p>Rebuilds the current pose indices order. Only available when needed (after 'Delete Lower' or 'Switch to Multi-Layer' (Case 3) were called)</p>
+		<!-- 3f. Refresh Pose List -->
+        <h4 id="refresh-poses">Refresh Pose List</h4>
+        <p>Refreshes the pose list. Use if you made changes to any of the pose meshes inside the corresponding "_Poses" sub-collection</p>
+
+
+
 
     </div><!-- End of Reshape Method note box -->
 
@@ -761,35 +769,82 @@
 
         <!-- 3c. Toggle Shape Key Mute -->
         <h4 id="toggle-shapekey-mute">Toggle Shape Key Mute</h4>
-        <p>Mutes or unmutes the selected shape key</p>
+        <p>Click on the eye 👁 icon next to each shapekey to mutes or unmute it</p>
 
         <!-- 3d. Restore Shape Keys -->
-        <h4 id="restore-shapekeys">Restore Shape Keys</h4>
-        <p>Restores all shape keys from the the stored *'_Shapekeys##' mesh. If '_Shapekeys##' mesh is present, you can use this function when you would like to reload your shapekeys</p>
-        <p><u><strong>*</strong> '<strong>_Shapekeys##</strong>' <strong>mesh</strong></u> - is created automatically when 'Delete Lower' or 'Switch to Multi-layer' (Case 3) functions are called. This mesh keeps and restore the user saved shape keys, which would otherwise get deleted in the process</p>
+        <h4 id="restore-shapekeys">Refresh Shape Keys</h4>
+        <p>Refresh the UI list to sync with the mesh's shapekeys</p>
 
         <!-- 3e. Clear All ShapeKeys -->
         <h4 id="clear-shapekeys">Clear All ShapeKeys</h4>
-        <p>Removes all shape keys from the mesh & deletes the stored '_Shapekeys##' mesh. Use if the stored '_Shapekeys##' gets corrupted</p>
+        <p>Removes all shape keys from the mesh & UI panel</p>
+		
+
+        <h4 id="solo">Solo Active Shape Key</h4>
+        <p>Toggles Solo Shapekey mode (Only show the active shape key at full value)</p>
+
 
         <!-- 3f. Delete Lower -->
         <h4 id="delete-lower">Delete Lower</h4>
-        <p>Deletes the lowest subdivision level of the multires mesh, while preserving shape keys & poses. Use when the multires mesh base geometry is not enough to make shapekey poses</p>
-		<p><span style="font-size: 1.2em;">ℹ️</span> Any 'Reshape' Poses would have to be rebuilt (with the 'Re-build Pose' function)</p>
-        <p><span style="font-size: 1.2em;">⚠️</span> <strong>Note:</strong> Depending on the size of the mesh, this process might take a while. Open the console beforehand if you would like to track the progress (<strong>Window >> Toggle System Console</strong>)</p>
+        <p>Deletes the lowest subdivision level of the multires mesh, while preserving the shape keys. Use when the multires mesh base geometry is not enough to make shapekey poses</p>
+		<p><span style="font-size: 1.2em;">⚠️</span> <strong>Note:</strong> Depending on the size of the mesh, this process might take a while. Open the console beforehand if you would like to track the progress (<strong>Window >> Toggle System Console</strong>)</p>
+		<p style="color: red;"><span style="font-size: 1.2em;">⚠️</span> Any 'Reshape' method poses will be deleted in the process!</p><p>⠀⠀you can preserve the poses beforehand by using the 'Bake from Multires' function</p>
 
-        <!-- Multi-res Advanced Operations -->
-		<br>
-		<br>
-        <h3 id="multires-advanced">Multi-Layer Operations</h3>
+    </div><!-- End of Shape Keys Method note box -->
 
-        <!-- Create Multi-Layer -->
-        <h4 id="create-multilayer">Create Multi-Layer</h4>
-        <p>Creates a corresponding a multi-layer setup for the current mesh. Only available when mesh has a multires modifier & no corresponding multi-layer</p>
 
-        <!-- Convert to Multi-Layer -->
+	<h2 id="sync">🔍 4. Multi-Layer/Multi-res Sync</h2>
+
+    <!-- ==== Sync Summary Box ==== -->
+    <div class="note clearfix" style="overflow: hidden;">
+
+        <strong>Overview:</strong> The Sync Panel is where the user will create/convert his multi-layer/multi-res respectively. It also makes sure to notify the user if there are any issues that prevents both meshes from syncing.
+        <ul>
+		<strong> Multi-layer/Multi-res have to sync in order for conversion to work properly!</strong>
+		</ul>
+    </div><!-- End of Summary note box -->
+
+
+    <!-- ==== Sync Method Box ==== -->
+    <div class="note clearfix" style="overflow: hidden;">
+        <img src="Sync.png" 
+             alt="Multi-res Reshape method" 
+             class="image-float-right">
+        
+        <h3 id="quick-poses-reshape"><strong>Sync Panel:</strong></h3>
+        
+		
+		<h4 id="info">Multi-res/Multi-Layer Info</h4>
+		<p>Click the question mark ❓ icon on the top right corner of the panel, to output sync info to the console for the current mesh.</p>
+		
+		<!-- 2l. Advanced Operations -->
+        <h3 class="custom_underline" id="multilayer-advanced">Multi-Layer Operations:</h3>
+	
+
+        <!-- Create Multi-res -->
+        <h4 id="create-multires">Create Multi-res</h4>
+        <p>Creates a corresponding multi-res mesh to work with your multi-layer mesh. Only available when no corresponding multi-res mesh is found</p>
+		<p><span style="font-size: 1.2em;">ℹ️</span>  Uses 'Unsubdivide' function from Multires modifier to break down your mesh to the lowest possible sub-d level. If the resulting Multi-res mesh has 0 levels --> the 'Unsubdivide' function failed. Most likely because of bad topology. Retopology will be required.</p>
+		<p><span style="font-size: 1.2em;">⚠️</span> <strong>Note:</strong> Depending on the size of the mesh, this process might take a while. Open the console beforehand if you would like to track the progress (<strong>Window >> Toggle System Console</strong>)</p>
+		
+        <!-- Convert to Multi-res -->
+        <h4 id="convert-multires">Convert to Multi-res</h4>
+        <p>Converts your multi-layer mesh to its multi-res counterpart, using the 'Reshape' function of the Multires modifier.</p>
+		<p><span style="font-size: 1.2em;">ℹ️</span> Conversion respects the active mesh placement in the outliner</p>
+		
+		<h4 id="switch-multires">Switch to Multi-res</h4>
+        <p>Switches to the corresponding multi-res mesh without conversion. Only available when there is a desync</p>
+		
+		<h3 class="custom_underline" id="multires-advanced">Multi-res Operations:</h3>
+		<p>Available when working on a mesh with "_multires" suffix in its name</p>
+		
+		<h4>Create Multi-Layer</h4>
+        <p>Create a corresponding multi-layer mesh. Only available when no corresponding multi-layer mesh is found</p>
+		
+		<!-- Convert to Multi-Layer -->
         <h4 id="convert-multilayer">Switch to Multi-Layer</h4>
-        <p>Switches back to Multi-Layer. Only available when mesh has a multires modifier & a corresponding multi-layer</p>
+        <p>Switches back to Multi-Layer. Responsible for re-syncing Multi-res/layer if there is a level mis-match. Only available when mesh has a multires modifier & a corresponding multi-layer</p>
+		<p><span style="font-size: 1.2em;">ℹ️</span> Operator respects the active mesh placement in the outliner</p>
 		<p>This function runs under 3 different cases:</p>
 		<p><strong>Case 1:</strong></p>
 		<p>Multi-res level = Multi-Layer level - In which case the conversion will be fast and will not take more then a few seconds</p>
@@ -798,11 +853,15 @@
 		<p><strong>Case 3:</strong></p>
 		<p>Multi-res level &gt Multi-Layer level - the slowest case. Here the Multi-Layer would be reconstructed from the ground up with the appropriate subdivision levels, to properly match the indices order of the multi-res</p>
 		<p><span style="font-size: 1.2em;">⚠️</span> <strong>Note:</strong> Depending on the size of the mesh, this process might take a while. Open the console beforehand if you would like to track the progress (<strong>Window >> Toggle System Console</strong>)</p>
+		<p style="color: red;"><span style="font-size: 1.2em;">⚠️</span> Any 'Reshape' method poses will be deleted in the process!</p><p>⠀⠀you can preserve the poses beforehand by using the 'Bake from Multires' function</p>
+		
+		
+	</div>
+       
 
-    </div><!-- End of Shape Keys Method note box -->
 
     <!-- ============================================================ -->
-    <!-- 4. BUGS & ISSUES -->
+    <!-- 5. BUGS & ISSUES -->
     <!-- ============================================================ -->
     <h2 id="bugs-issues">🐛 4. Bugs &amp; Issues</h2>
 
@@ -810,9 +869,7 @@
         <strong>⚠️ Known Issues:</strong>
         <ul>
             <li><strong>Issue:</strong> Symmetrizing the mesh corrupts the sync with corresponding multi-layer/multi-res counterpart, as well as the multi-layer setup</li>
-			<li><strong>Workaround:</strong> None so far</li>
-			<li><strong>Issue:</strong> Voxel Remesh corrupts the multi-layer setup</li>
-			<li><strong>Workaround:</strong> Use the 'Remesh' button from the multi-layer panel</li>
+			<li><strong>Workaround:</strong> None so far. might create a 'Symmetrize Layer'/'Symmetrize Base Mesh' down the line...</li>
         </ul>
     </div>
 	
@@ -836,7 +893,7 @@
 
     <p style="text-align: center; color: #888; font-size: 0.9em;">
         <strong>Simple Sculpt Layers Plus (SSLP)</strong> — Professional Non-Destructive Sculpt Layer System for Blender<br>
-        <span style="font-size: 0.85em;">Documentation generated for SSLP v1.0</span>
+        <span style="font-size: 0.85em;">Documentation created for SSLP v1.0</span>
     </p>
 
 </div>
