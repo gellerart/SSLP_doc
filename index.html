@@ -4,543 +4,599 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Sculpt Layers (SSLv2) - Documentation</title>
-	<style>
-
-		.custom_underline {
-			text-decoration: underline;
-		}
-
-		.image-float-left {
-			float: left;
-			margin: 0 20px 10px 0;
-			max-width: 40%;
-			height: auto;
-			border-radius: 8px;
-			border: 1px solid #343a42;
-		}
-
-		.image-float-right {
-			float: right;
-			margin: 0 0 10px 20px;
-			max-width: 40%;
-			height: auto;
-			border-radius: 8px;
-			border: 1px solid #343a42;
-		}
-
-		/* Clearfix for floating */
-		.clearfix::after {
-			content: "";
-			clear: both;
-			display: table;
-		}
-
-		/* Modern CSS Reset */
-		* {
-			margin: 0;
-			padding: 0;
-			box-sizing: border-box;
-		}
-
-		/* ============================================================
-		   DARK THEME
-		   ============================================================ */
-
-		body {
-			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-			line-height: 1.6;
-			color: #d6d9de;
-			background: #121417;
-			padding: 20px;
-		}
-
-		.container {
-			max-width: 1200px;
-			margin: 0 auto;
-			background: #1b1f24;
-			border-radius: 12px;
-			box-shadow: 0 4px 25px rgba(0, 0, 0, 0.35);
-			padding: 40px;
-			border: 1px solid #2b3037;
-		}
-
-		/* ============================================================
-		   Typography
-		   ============================================================ */
-
-		h1 {
-			font-size: 2.5em;
-			color: #f1f3f5;
-			border-bottom: 4px solid #4a90d9;
-			padding-bottom: 10px;
-			margin-bottom: 30px;
-		}
-
-		h2 {
-			font-size: 2em;
-			color: #e7e9ec;
-			margin-top: 40px;
-			margin-bottom: 20px;
-			padding-bottom: 8px;
-			border-bottom: 2px solid #343a42;
-		}
-
-		h3 {
-			font-size: 1.3em;
-			color: #e1e4e8;
-			margin-top: 20px;
-			margin-bottom: 10px;
-		}
-
-		h4 {
-			font-size: 1.1em;
-			color: #cfd3d8;
-			margin-top: 15px;
-			margin-bottom: 8px;
-		}
-
-		h5 {
-			font-size: 1.1em;
-			color: #c5c9ce;
-			margin-top: 15px;
-			margin-bottom: 8px;
-		}
-
-		p {
-			margin-bottom: 15px;
-			color: #b9bec5;
-		}
-
-		strong {
-			color: #e3e6ea;
-		}
-
-		/* ============================================================
-		   Lists
-		   ============================================================ */
-
-		ul, ol {
-			margin: 15px 0 15px 30px;
-			color: #b9bec5;
-		}
-
-		li {
-			margin-bottom: 8px;
-		}
-
-		/* ============================================================
-		   Code
-		   ============================================================ */
-
-		code {
-			background: #292e35;
-			padding: 2px 8px;
-			border-radius: 4px;
-			font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-			font-size: 0.9em;
-			color: #e58bb0;
-		}
-
-		pre {
-			background: #111315;
-			color: #d4d7db;
-			padding: 20px;
-			border-radius: 8px;
-			overflow-x: auto;
-			margin: 20px 0;
-			font-size: 0.9em;
-			line-height: 1.5;
-			border: 1px solid #2d3238;
-		}
-
-		pre code {
-			background: transparent;
-			color: #d4d7db;
-			padding: 0;
-		}
-
-		/* ============================================================
-		   Tables
-		   ============================================================ */
-
-		table {
-			width: 100%;
-			border-collapse: collapse;
-			margin: 20px 0;
-			font-size: 0.95em;
-			color: #c9cdd2;
-		}
-
-		th {
-			background: #3979b8;
-			color: #ffffff;
-			padding: 12px 15px;
-			text-align: left;
-			font-weight: 600;
-		}
-
-		td {
-			padding: 12px 15px;
-			border-bottom: 1px solid #343a42;
-		}
-
-		tr:nth-child(even) {
-			background: #20252b;
-		}
-
-		tr:nth-child(odd) {
-			background: #1b1f24;
-		}
-
-		tr:hover {
-			background: #292f36;
-		}
-
-		/* ============================================================
-		   Information Boxes
-		   ============================================================ */
-
-		.note {
-			background: #1c2a38;
-			border-left: 4px solid #4a90d9;
-			padding: 15px 20px;
-			margin: 20px 0;
-			border-radius: 4px;
-		}
-
-		.warning {
-			background: #30291d;
-			border-left: 4px solid #d99a3d;
-			padding: 15px 20px;
-			margin: 20px 0;
-			border-radius: 4px;
-		}
-
-		.error {
-			background: #321f21;
-			border-left: 4px solid #d64b4b;
-			padding: 15px 20px;
-			margin: 20px 0;
-			border-radius: 4px;
-		}
-
-		.success {
-			background: #1d3024;
-			border-left: 4px solid #3caf63;
-			padding: 15px 20px;
-			margin: 20px 0;
-			border-radius: 4px;
-		}
-
-		/* ============================================================
-		   Tags
-		   ============================================================ */
-
-		.tag {
-			display: inline-block;
-			background: #3979b8;
-			color: white;
-			padding: 2px 10px;
-			border-radius: 12px;
-			font-size: 0.8em;
-			font-weight: 600;
-			margin: 2px 0;
-		}
-
-		.tag-green {
-			background: #2e9653;
-		}
-
-		.tag-orange {
-			background: #c98225;
-		}
-
-		.tag-red {
-			background: #c43f3f;
-		}
-
-		.tag-purple {
-			background: #8145a1;
-		}
-
-		/* ============================================================
-		   Badges
-		   ============================================================ */
-
-		.badge {
-			display: inline-block;
-			background: #2b3037;
-			color: #cfd3d8;
-			padding: 2px 12px;
-			border-radius: 12px;
-			font-size: 0.85em;
-			font-weight: 500;
-			margin: 2px 0;
-			border: 1px solid #3a4149;
-		}
-
-		/* ============================================================
-		   Table of Contents
-		   ============================================================ */
-
-		.toc {
-			background: #20252b;
-			padding: 15px 20px;
-			border-radius: 8px;
-			margin: 30px 0;
-			border: 1px solid #30363e;
-		}
-
-		.toc ul {
-			list-style: none;
-			padding-left: 0;
-			margin: 0;
-		}
-
-		.toc li {
-			padding: 2px 0;
-			border-bottom: 1px solid #2d333a;
-		}
-
-		.toc li:last-child {
-			border-bottom: none;
-		}
-
-		.toc a {
-			color: #5da3e6;
-			text-decoration: none;
-			font-weight: 500;
-		}
-
-		.toc a:hover {
-			color: #82bdf0;
-			text-decoration: underline;
-		}
-
-		.toc ul ul {
-			padding-left: 20px;
-			margin: 0;
-		}
-
-		.toc ul ul li {
-			border-bottom: none;
-			padding: 1px 0;
-			font-weight: normal;
-		}
-
-		.toc ul ul ul {
-			padding-left: 15px;
-		}
-
-		.toc ul ul ul li {
-			font-size: 0.95em;
-			color: #9da3aa;
-			padding: 1px 0;
-		}
-
-		/* ============================================================
-		   Grid
-		   ============================================================ */
-
-		.grid-2 {
-			display: grid;
-			grid-template-columns: 1fr 1fr;
-			gap: 20px;
-			margin: 20px 0;
-		}
-
-		.grid-3 {
-			display: grid;
-			grid-template-columns: 1fr 1fr 1fr;
-			gap: 20px;
-			margin: 20px 0;
-		}
-
-		.card {
-			background: #20252b;
-			padding: 20px;
-			border-radius: 8px;
-			border: 1px solid #343a42;
-		}
-
-		.card h4 {
-			margin-top: 0;
-			color: #e1e4e8;
-		}
-
-		/* ============================================================
-		   Placeholder
-		   ============================================================ */
-
-		.placeholder {
-			background: #30291d;
-			border: 2px dashed #c98b32;
-			padding: 20px;
-			border-radius: 8px;
-			margin: 15px 0;
-			color: #c9b88f;
-		}
-
-		.placeholder::before {
-			content: "📝 ";
-			font-weight: bold;
-		}
-
-		.empty-section {
-			background: #20242a;
-			padding: 15px 20px;
-			border-radius: 6px;
-			margin: 10px 0;
-			color: #777e86;
-			font-style: italic;
-			border: 1px solid #30353c;
-		}
-
-		/* ============================================================
-		   Responsive
-		   ============================================================ */
-
-		@media (max-width: 768px) {
-			.container {
-				padding: 20px;
-			}
-
-			h1 {
-				font-size: 2em;
-			}
-
-			h2 {
-				font-size: 1.6em;
-			}
-
-			.grid-2,
-			.grid-3 {
-				grid-template-columns: 1fr;
-			}
-
-			table {
-				font-size: 0.85em;
-			}
-
-			th,
-			td {
-				padding: 8px 10px;
-			}
-		}
-
-		/* ============================================================
-		   Print
-		   ============================================================ */
-
-		@media print {
-			body {
-				background: white;
-				padding: 0;
-				color: #222;
-			}
-
-			.container {
-				background: white;
-				box-shadow: none;
-				padding: 20px;
-				border: none;
-			}
-
-			.toc {
-				break-inside: avoid;
-			}
-
-			.card {
-				break-inside: avoid;
-			}
-
-			.placeholder {
-				border: 1px solid #ccc;
-				background: #f9f9f9;
-			}
-		}
-
-		/* ============================================================
-		   Scrollbar
-		   ============================================================ */
-
-		::-webkit-scrollbar {
-			width: 8px;
-			height: 8px;
-		}
-
-		::-webkit-scrollbar-track {
-			background: #181b1f;
-			border-radius: 4px;
-		}
-
-		::-webkit-scrollbar-thumb {
-			background: #3b424a;
-			border-radius: 4px;
-		}
-
-		::-webkit-scrollbar-thumb:hover {
-			background: #505963;
-		}
-
-		/* ============================================================
-		   Misc
-		   ============================================================ */
-
-		.center {
-			text-align: center;
-		}
-
-		.mt-20 {
-			margin-top: 20px;
-		}
-
-		.mb-20 {
-			margin-bottom: 20px;
-		}
-
-		.inline-code {
-			background: #292e35;
-			padding: 2px 6px;
-			border-radius: 3px;
-			font-family: monospace;
-			font-size: 0.9em;
-			color: #d6d9de;
-		}
-
-		.file-name {
-			background: #101214;
-			color: #d8dce1;
-			padding: 4px 12px;
-			border-radius: 4px;
-			font-family: monospace;
-			font-size: 0.9em;
-			display: inline-block;
-			margin: 4px 0;
-			border: 1px solid #30363d;
-		}
-
-		.icon-list {
-			list-style: none;
-			padding-left: 0;
-		}
-
-		.icon-list li::before {
-			content: "▸ ";
-			color: #5da3e6;
-			font-weight: bold;
-		}
-
-		.operator-name {
-			font-family: monospace;
-			background: #292e35;
-			padding: 2px 8px;
-			border-radius: 3px;
-			font-size: 0.9em;
-			color: #d5d9de;
-		}
-
-	</style>
+    <style>
+
+        .custom_underline {
+            text-decoration: underline;
+        }
+
+        .image-float-left {
+            float: left;
+            margin: 0 20px 10px 0;
+            max-width: 40%;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid #343a42;
+        }
+
+        .image-float-right {
+            float: right;
+            margin: 0 0 10px 20px;
+            max-width: 40%;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid #343a42;
+        }
+
+        /* Clearfix for floating */
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        /* Modern CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ============================================================
+           DARK THEME
+           ============================================================ */
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: #d6d9de;
+            background: #121417;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #1b1f24;
+            border-radius: 12px;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.35);
+            padding: 40px;
+            border: 1px solid #2b3037;
+        }
+
+        /* ============================================================
+           Typography
+           ============================================================ */
+
+        h1 {
+            font-size: 2.5em;
+            color: #f1f3f5;
+            border-bottom: 4px solid #4a90d9;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            font-size: 2em;
+            color: #e7e9ec;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #343a42;
+        }
+
+        h3 {
+            font-size: 1.3em;
+            color: #e1e4e8;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        h4 {
+            font-size: 1.1em;
+            color: #cfd3d8;
+            margin-top: 15px;
+            margin-bottom: 8px;
+        }
+
+        h5 {
+            font-size: 1.1em;
+            color: #c5c9ce;
+            margin-top: 15px;
+            margin-bottom: 8px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: #b9bec5;
+        }
+
+        strong {
+            color: #e3e6ea;
+        }
+
+        /* ============================================================
+           Lists
+           ============================================================ */
+
+        ul, ol {
+            margin: 15px 0 15px 30px;
+            color: #b9bec5;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* ============================================================
+           Code
+           ============================================================ */
+
+        code {
+            background: #292e35;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9em;
+            color: #e58bb0;
+        }
+
+        pre {
+            background: #111315;
+            color: #d4d7db;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-size: 0.9em;
+            line-height: 1.5;
+            border: 1px solid #2d3238;
+        }
+
+        pre code {
+            background: transparent;
+            color: #d4d7db;
+            padding: 0;
+        }
+
+        /* ============================================================
+           Tables
+           ============================================================ */
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95em;
+            color: #c9cdd2;
+        }
+
+        th {
+            background: #3979b8;
+            color: #ffffff;
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #343a42;
+        }
+
+        tr:nth-child(even) {
+            background: #20252b;
+        }
+
+        tr:nth-child(odd) {
+            background: #1b1f24;
+        }
+
+        tr:hover {
+            background: #292f36;
+        }
+
+        /* ============================================================
+           Information Boxes
+           ============================================================ */
+
+        .note {
+            background: #1c2a38;
+            border-left: 4px solid #4a90d9;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .warning {
+            background: #30291d;
+            border-left: 4px solid #d99a3d;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .error {
+            background: #321f21;
+            border-left: 4px solid #d64b4b;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .success {
+            background: #1d3024;
+            border-left: 4px solid #3caf63;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        /* ============================================================
+           Tags
+           ============================================================ */
+
+        .tag {
+            display: inline-block;
+            background: #3979b8;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+
+        .tag-green {
+            background: #2e9653;
+        }
+
+        .tag-orange {
+            background: #c98225;
+        }
+
+        .tag-red {
+            background: #c43f3f;
+        }
+
+        .tag-purple {
+            background: #8145a1;
+        }
+
+        /* ============================================================
+           Badges
+           ============================================================ */
+
+        .badge {
+            display: inline-block;
+            background: #2b3037;
+            color: #cfd3d8;
+            padding: 2px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 500;
+            margin: 2px 0;
+            border: 1px solid #3a4149;
+        }
+
+        /* Blender logo styling */
+        .blender-logo {
+            height: 28px;
+            width: auto;
+            vertical-align: middle;
+        }
+
+        .badge-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 10px 0 20px 0;
+        }
+
+        /* ============================================================
+           Table of Contents
+           ============================================================ */
+
+        .toc {
+            background: #20252b;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 30px 0;
+            border: 1px solid #30363e;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        .toc li {
+            padding: 2px 0;
+            border-bottom: 1px solid #2d333a;
+        }
+
+        .toc li:last-child {
+            border-bottom: none;
+        }
+
+        .toc a {
+            color: #5da3e6;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .toc a:hover {
+            color: #82bdf0;
+            text-decoration: underline;
+        }
+
+        .toc ul ul {
+            padding-left: 20px;
+            margin: 0;
+        }
+
+        .toc ul ul li {
+            border-bottom: none;
+            padding: 1px 0;
+            font-weight: normal;
+        }
+
+        .toc ul ul ul {
+            padding-left: 15px;
+        }
+
+        .toc ul ul ul li {
+            font-size: 0.95em;
+            color: #9da3aa;
+            padding: 1px 0;
+        }
+
+        /* --- expandable TOC items --- */
+        .toc-toggle {
+            cursor: pointer;
+            user-select: none;
+            display: inline-block;
+        }
+        .toc-toggle::before {
+            content: "▶ ";
+            font-size: 0.8em;
+            color: #5da3e6;
+            transition: transform 0.2s;
+            display: inline-block;
+        }
+        .toc-toggle.open::before {
+            content: "▼ ";
+            transform: rotate(0deg);
+        }
+        .toc-sub {
+            overflow: hidden;
+            padding-left: 20px;
+            transition: max-height 0.25s ease-out;
+            max-height: 0;
+        }
+        .toc-sub.open {
+            max-height: 2000px; /* enough to contain all sub-items */
+            transition: max-height 0.4s ease-in;
+        }
+        .toc-sub ul {
+            margin: 0;
+        }
+        .toc li.toc-section {
+            border-bottom: 1px solid #2d333a;
+            padding: 4px 0;
+        }
+        .toc li.toc-section:last-child {
+            border-bottom: none;
+        }
+        .toc li.toc-section > a {
+            font-weight: 600;
+        }
+
+        /* ============================================================
+           Grid
+           ============================================================ */
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .card {
+            background: #20252b;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #343a42;
+        }
+
+        .card h4 {
+            margin-top: 0;
+            color: #e1e4e8;
+        }
+
+        /* ============================================================
+           Placeholder
+           ============================================================ */
+
+        .placeholder {
+            background: #30291d;
+            border: 2px dashed #c98b32;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            color: #c9b88f;
+        }
+
+        .placeholder::before {
+            content: "📝 ";
+            font-weight: bold;
+        }
+
+        .empty-section {
+            background: #20242a;
+            padding: 15px 20px;
+            border-radius: 6px;
+            margin: 10px 0;
+            color: #777e86;
+            font-style: italic;
+            border: 1px solid #30353c;
+        }
+
+        /* ============================================================
+           Responsive
+           ============================================================ */
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            h2 {
+                font-size: 1.6em;
+            }
+
+            .grid-2,
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 0.85em;
+            }
+
+            th,
+            td {
+                padding: 8px 10px;
+            }
+        }
+
+        /* ============================================================
+           Print
+           ============================================================ */
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+                color: #222;
+            }
+
+            .container {
+                background: white;
+                box-shadow: none;
+                padding: 20px;
+                border: none;
+            }
+
+            .toc {
+                break-inside: avoid;
+            }
+
+            .card {
+                break-inside: avoid;
+            }
+
+            .placeholder {
+                border: 1px solid #ccc;
+                background: #f9f9f9;
+            }
+        }
+
+        /* ============================================================
+           Scrollbar
+           ============================================================ */
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #181b1f;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #3b424a;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #505963;
+        }
+
+        /* ============================================================
+           Misc
+           ============================================================ */
+
+        .center {
+            text-align: center;
+        }
+
+        .mt-20 {
+            margin-top: 20px;
+        }
+
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+
+        .inline-code {
+            background: #292e35;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+            font-size: 0.9em;
+            color: #d6d9de;
+        }
+
+        .file-name {
+            background: #101214;
+            color: #d8dce1;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9em;
+            display: inline-block;
+            margin: 4px 0;
+            border: 1px solid #30363d;
+        }
+
+        .icon-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .icon-list li::before {
+            content: "▸ ";
+            color: #5da3e6;
+            font-weight: bold;
+        }
+
+        .operator-name {
+            font-family: monospace;
+            background: #292e35;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-size: 0.9em;
+            color: #d5d9de;
+        }
+
+    </style>
 </head>
 <body>
 
@@ -552,12 +608,14 @@
         Professional non-destructive sculpt layer system for Blender.  
     </p>
 
-    <div style="margin: 10px 0 20px 0;">
+    <!-- Badges with Blender logo -->
+    <div class="badge-wrapper">
+        <img src="blender-logo.png" alt="Blender" class="blender-logo">
         <span class="badge">Version 1.0</span>
         <span class="badge">Blender 4.5</span>
-		<span class="badge">Blender 5.0</span>
-		<span class="badge">Blender 5.1</span>
-		<span class="badge">Blender 5.2</span>
+        <span class="badge">Blender 5.0</span>
+        <span class="badge">Blender 5.1</span>
+        <span class="badge">Blender 5.2</span>
     </div>
 
     <!-- Overview -->
@@ -573,79 +631,77 @@
         <h3 style="margin-top: 0; margin-bottom: 10px;">📑 Table of Contents</h3>
         <ul>
             <li><a href="#installation"><strong>1. Installation</strong></a></li>
-            <li>
-                <a href="#multilayer"><strong>2. Multi-layer</strong></a>
-                <ul>
-                    <li><a href="#set-base">Set Base Mesh</a></li>
-					<li><a href="#auto-store">Auto-Store</a></li>
-                    <li><a href="#add-layer">Add Sculpt Layer</a></li>
-					<li><a href="#rename-layer">Rename Layer</a></li>
-					<li><a href="#mask-layer">Mask Layer</a></li>
-                    <li><a href="#delete-layer">Delete Sculpt Layer</a></li>
-					
-					<li><a href="#enable-layer">Enable Layer</a></li>
-					<li><a href="#toggle-visibility">Toggle Visibility</a></li>
-                    <li><a href="#set-strength">Set Layer Strength</a></li>
-
-                    <li><a href="#move-layer">Move Sculpt Layer Up/Down</a></li>
-					<li><a href="#merge-down">Merge Visible</a></li>
-                    <li><a href="#merge-down">Merge Down</a></li>
-					<li><a href="#duplicate">Duplicate Layer</a></li>
-                    <li><a href="#cut-mask">Cut Mask to New Layer</a></li>
-					<li><a href="#bake-multires">Bake from Multires</a></li>
-					<li><a href="#bake-shapekey">Bake to Shapekey</a></li>
-					<li><a href="#blur">Blur Layer</a></li>
-                    <li><a href="#mask-erase">Mask Erase</a></li>
-					<li><a href="#store-changes">Store Changes</a></li>
-					<li><a href="#refresh-layers">Refresh Layers</a></li>
-                    <li><a href="#geonode">Construct Geonode Tools</a></li>
-                </ul>
+            <li class="toc-section">
+                <span class="toc-toggle" data-target="toc-multilayer"><a href="#multilayer"><strong>2. Multi-layer</strong></a></span>
+                <div id="toc-multilayer" class="toc-sub">
+                    <ul>
+                        <li><a href="#set-base">Set Base Mesh</a></li>
+                        <li><a href="#auto-store">Auto-Store</a></li>
+                        <li><a href="#add-layer">Add Sculpt Layer</a></li>
+                        <li><a href="#rename-layer">Rename Layer</a></li>
+                        <li><a href="#mask-layer">Mask Layer</a></li>
+                        <li><a href="#delete-layer">Delete Sculpt Layer</a></li>
+                        <li><a href="#enable-layer">Enable Layer</a></li>
+                        <li><a href="#toggle-visibility">Toggle Visibility</a></li>
+                        <li><a href="#set-strength">Set Layer Strength</a></li>
+                        <li><a href="#move-layer">Move Sculpt Layer Up/Down</a></li>
+                        <li><a href="#merge-down">Merge Visible</a></li>
+                        <li><a href="#merge-down">Merge Down</a></li>
+                        <li><a href="#duplicate">Duplicate Layer</a></li>
+                        <li><a href="#cut-mask">Cut Mask to New Layer</a></li>
+                        <li><a href="#bake-multires">Bake from Multires</a></li>
+                        <li><a href="#bake-shapekey">Bake to Shapekey</a></li>
+                        <li><a href="#blur">Blur Layer</a></li>
+                        <li><a href="#mask-erase">Mask Erase</a></li>
+                        <li><a href="#store-changes">Store Changes</a></li>
+                        <li><a href="#refresh-layers">Refresh Layers</a></li>
+                        <li><a href="#geonode">Construct Geonode Tools</a></li>
+                    </ul>
+                </div>
             </li>
-            <li>
-                <a href="#multires"><strong>3. Quick Poses</strong></a>
-                <ul>
-                    <li>
-                        <a href="#quick-poses-reshape"><strong>'Reshape' Method</strong></a>
-                        <ul>
-                            <li><a href="#add-pose">Add Pose</a></li>
-                            <li><a href="#delete-pose">Delete Pose</a></li>
-                            <li><a href="#clear-basemesh">Reset to Basemesh</a></li>
-                            <li><a href="#store-pose">Store Pose</a></li>
-                            <li><a href="#apply-pose">Apply Pose</a></li>
-							<li><a href="#refresh-poses">Refresh Pose List</a></li>
-
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="#quick-poses-shapekeys"><strong>'Shape Keys' Method</strong></a>
-                        <ul>
-                            <li><a href="#add-shapekey">Add Shape Key</a></li>
-                            <li><a href="#delete-shapekey">Delete Shape Key</a></li>
-                            <li><a href="#toggle-shapekey-mute">Toggle Shape Key Mute</a></li>
-                            <li><a href="#restore-shapekeys">Refresh Shape Keys</a></li>
-                            <li><a href="#clear-shapekeys">Clear All ShapeKeys</a></li>
-							<li><a href="#solo">Solo Shapekey</a></li>
-                            <li><a href="#delete-lower">Delete Lower</a></li>
-                        </ul>
-                    </li>
-                </ul>
+            <li class="toc-section">
+                <span class="toc-toggle" data-target="toc-quickposes"><a href="#multires"><strong>3. Quick Poses</strong></a></span>
+                <div id="toc-quickposes" class="toc-sub">
+                    <ul>
+                        <li>
+                            <a href="#quick-poses-reshape"><strong>'Reshape' Method</strong></a>
+                            <ul>
+                                <li><a href="#add-pose">Add Pose</a></li>
+                                <li><a href="#delete-pose">Delete Pose</a></li>
+                                <li><a href="#clear-basemesh">Reset to Basemesh</a></li>
+                                <li><a href="#store-pose">Store Pose</a></li>
+                                <li><a href="#apply-pose">Apply Pose</a></li>
+                                <li><a href="#refresh-poses">Refresh Pose List</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#quick-poses-shapekeys"><strong>'Shape Keys' Method</strong></a>
+                            <ul>
+                                <li><a href="#add-shapekey">Add Shape Key</a></li>
+                                <li><a href="#delete-shapekey">Delete Shape Key</a></li>
+                                <li><a href="#toggle-shapekey-mute">Toggle Shape Key Mute</a></li>
+                                <li><a href="#restore-shapekeys">Refresh Shape Keys</a></li>
+                                <li><a href="#clear-shapekeys">Clear All ShapeKeys</a></li>
+                                <li><a href="#solo">Solo Shapekey</a></li>
+                                <li><a href="#delete-lower">Delete Lower</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
             </li>
-			
-			<li>
-                <a href="#sync"><strong>4. Sync Panel</strong></a>
-                <ul>
-                    <li>
-                        <ul>
-                            <li><a href="#info">Multi-res/Multi-Layer Info</a></li>
-                            <li><a href="#create-multires">Create Multi-res</a></li>
-                            <li><a href="#convert-multires">Convert to Multires</a></li>
-                            <li><a href="#switch-multires">Switch to Multires</a></li>
-                            <li><a href="#multires-advanced">Create Multi-Layer</a></li>
-							<li><a href="#refresh-poses">Refresh Pose List</a></li>
-
-                        </ul>
-                    </li>
-			
+            <li class="toc-section">
+                <span class="toc-toggle" data-target="toc-sync"><a href="#sync"><strong>4. Sync Panel</strong></a></span>
+                <div id="toc-sync" class="toc-sub">
+                    <ul>
+                        <li><a href="#info">Multi-res/Multi-Layer Info</a></li>
+                        <li><a href="#create-multires">Create Multi-res</a></li>
+                        <li><a href="#convert-multires">Convert to Multires</a></li>
+                        <li><a href="#switch-multires">Switch to Multires</a></li>
+                        <li><a href="#multires-advanced">Create Multi-Layer</a></li>
+                        <li><a href="#refresh-poses">Refresh Pose List</a></li>
+                    </ul>
+                </div>
+            </li>
             <li><a href="#bugs-issues"><strong>5. Bugs &amp; Issues</strong></a></li>
         </ul>
     </div>
@@ -662,7 +718,6 @@
         <li>The panel will appear in the <strong>Viewport Side Panel (N) → Sculpt Layers +</strong> (in Sculpt Mode)</li>
         <p><span style="font-size: 1.2em;">ℹ️</span><strong>Note:</strong> Inside the addon preferences, you can decide in which tab the panel would be</p>
     </ol>
-
 
     <!-- ============================================================ -->
     <!-- 2. MULTILAYER -->
@@ -682,35 +737,34 @@
         <h3 id="set-base">Set Base Mesh</h3>
         <p>Stores the current mesh state as the foundation for all sculpt layers. Every mesh is required to have a base mesh before user can start working with the Multi-Layer panel</p>
 
-		<h3 id="auto-store">Auto-Store</h3>
-		<p>Auto stores the selected layer's data - only if changes were detected</p>
+        <h3 id="auto-store">Auto-Store</h3>
+        <p>Auto stores the selected layer's data - only if changes were detected</p>
 
         <!-- 2b. Add Sculpt Layer -->
         <h3 id="add-layer">Add Sculpt Layer</h3>
         <p>Creates a new empty layer and enables it</p>
         
-		<h3 id="rename-layer">Rename Layer</h3>
-		<p>Click on the pen 🖋️ icon next to each layer, to change its name</p>
-		
-		<h3 id="mask-layer">Mask Layer</h3>
-		<p>Click on the mask [●] icon next to each layer, to mask only the vertices that are affected by that layer</p>
-		
+        <h3 id="rename-layer">Rename Layer</h3>
+        <p>Click on the pen 🖋️ icon next to each layer, to change its name</p>
+        
+        <h3 id="mask-layer">Mask Layer</h3>
+        <p>Click on the mask [●] icon next to each layer, to mask only the vertices that are affected by that layer</p>
+        
         <!-- 2g. Enable Layer -->
         <h3 id="enable-layer">Toggle Layer</h3>
         <p>Click on the checkbox ☑ next to each layer to set it as the active (selected) layer</p>
         <p><span style="font-size: 1.2em;">ℹ️</span> Only one layer can be selected at a time</p>
-		
-		 <!-- 2e. Toggle Visibility -->
+        
+         <!-- 2e. Toggle Visibility -->
         <h3 id="toggle-visibility">Toggle Visibility</h3>
         <p>Click on the eye 👁 icon to show or hide that layer in the viewport</p>
         <p><span style="font-size: 1.2em;">ℹ️</span> ALT + click on the eye icon to isolate the layer</p>
-		<p><span style="font-size: 1.2em;">⠀⠀</span> ALT + click again to restore visibility status of layer stack</p>
+        <p><span style="font-size: 1.2em;">⠀⠀</span> ALT + click again to restore visibility status of layer stack</p>
 
         <!-- 2f. Set Layer Strength -->
         <h3 id="set-strength">Set Layer Strength</h3>
         <p>Click on the percentage <strong>%</strong> figure next to each layer, to control how much that layer will contributes to the overall mesh</p>
-		<p><span style="font-size: 1.2em;">ℹ️ </span><strong>0%</strong> to <strong>100%</strong> is the soft limit. However, you can type in any value between <strong>-1000%</strong> to <strong>1000%</strong> </p>
-
+        <p><span style="font-size: 1.2em;">ℹ️ </span><strong>0%</strong> to <strong>100%</strong> is the soft limit. However, you can type in any value between <strong>-1000%</strong> to <strong>1000%</strong> </p>
 
         <!-- 2c. Delete Sculpt Layer -->
         <h3 id="delete-layer">Delete Sculpt Layer</h3>
@@ -720,47 +774,47 @@
         <h3 id="move-layer">Move Sculpt Layer Up/Down</h3>
         <p>Moves selected layer up/down in the stack. Use when you want to merge down two specific layers</p>
 
-		<!-- 2e. Merge Visible -->
+        <!-- 2e. Merge Visible -->
         <h3 id="merge-visible">Merge Visible</h3>
         <p>Merges all the visible layers in the stack with the selected layer</p>
 
         <!-- 2e. Merge Down -->
         <h3 id="merge-down">Merge Down</h3>
         <p>Merges the selected layer with the one below</p>
-		
-		<!-- Duplicate Layer -->
-		<h3 id="duplicate">Duplicate Layer</h3>
+        
+        <!-- Duplicate Layer -->
+        <h3 id="duplicate">Duplicate Layer</h3>
         <p>Duplicates the selected layer</p>
-		
+        
         <!-- 2h. Cut Mask to New Layer -->
         <h3 id="cut-mask">Cut Mask to New Layer</h3>
         <p>Extracts the selected layer's data - that lies within the masked area - into a new layer</p>
         <p><span style="font-size: 1.2em;">ℹ️</span> Sensitive to mask strength</p>
-		
-		<!-- Bake from Multires -->
-		<h3 id="bake-multires">Bake from Multires</h3>
+        
+        <!-- Bake from Multires -->
+        <h3 id="bake-multires">Bake from Multires</h3>
         <p>Bakes the current Multi-res mesh (if exists) into a new layer</p>
-		<p><span style="font-size: 1.2em;">ℹ️</span> The visbility status of the layer stack will affect the baked result. This is done purposefully, so the user can choose which comprising part of the multires he wants to isolate into a new layer (since after converting the multilayer to multires: the <strong>multires = the sum of all visible layers</strong>). Especially useful if changes were made to the multires mesh, that user wants to capture in layer form, or if user wants to bake the multires mesh to a shapekey mesh</p>
+        <p><span style="font-size: 1.2em;">ℹ️</span> The visbility status of the layer stack will affect the baked result. This is done purposefully, so the user can choose which comprising part of the multires he wants to isolate into a new layer (since after converting the multilayer to multires: the <strong>multires = the sum of all visible layers</strong>). Especially useful if changes were made to the multires mesh, that user wants to capture in layer form, or if user wants to bake the multires mesh to a shapekey mesh</p>
 
-		<!-- Bake to Shapekey -->
-		<h3 id="bake-shapekey">Bake to Shapekey</h3>
+        <!-- Bake to Shapekey -->
+        <h3 id="bake-shapekey">Bake to Shapekey</h3>
         <p>Bakes the current Multi-Layer mesh into a shapekey within a new mesh (with a "_shapekey" suffix added to its name)</p>
-		
-		<h3 id="blur">Blur Layer</h3>
+        
+        <h3 id="blur">Blur Layer</h3>
         <p>Blurs the selected layer</p>
-		
+        
         <!-- 2j. Mask Erase -->
         <h3 id="mask-erase">Erase Masked Area</h3>
         <p>Deletes all the data of a selected layer, that is found within the masked area</p>
-		<p><span style="font-size: 1.2em;">ℹ️</span> Sensitive to mask strength</p>
-		
-		<h3 id="store-changes">Store Changes</h3>
+        <p><span style="font-size: 1.2em;">ℹ️</span> Sensitive to mask strength</p>
+        
+        <h3 id="store-changes">Store Changes</h3>
         <p>Store any changes made to the selected layer. Use if Auto-Store is disabled</p>
-		
-		<h3 id="refresh-layers">Refresh Layers</h3>
+        
+        <h3 id="refresh-layers">Refresh Layers</h3>
         <p>Refreshes the layer UI and current mesh</p>
 
-		<h3 id="geonode">Construct Geonodes Tools</h3>
+        <h3 id="geonode">Construct Geonodes Tools</h3>
         <p>Constructs all geonode tools needed for SSLP to work. If a geonode tool got corrupted for some reason, user can delete it and call this function</p>
 
         </ol>
@@ -805,17 +859,14 @@
         <!-- 3d. Store Pose -->
         <h4 id="store-pose">Store Pose</h4>
         <p>Saves the current multi-res mesh as a pose</p>
-	
+    
         <!-- 3e. Apply Pose -->
         <h4 id="apply-pose">Apply Pose</h4>
         <p>Loads back the stored pose</p>
-		
-		<!-- 3f. Refresh Pose List -->
+        
+        <!-- 3f. Refresh Pose List -->
         <h4 id="refresh-poses">Refresh Pose List</h4>
         <p>Refreshes the pose list. Use if you made changes to any of the pose meshes inside the corresponding "_Poses" sub-collection</p>
-
-
-
 
     </div><!-- End of Reshape Method note box -->
 
@@ -848,30 +899,29 @@
         <!-- 3e. Clear All ShapeKeys -->
         <h4 id="clear-shapekeys">Clear All ShapeKeys</h4>
         <p>Removes all shape keys from the mesh & UI panel</p>
-		
+        
 
         <h4 id="solo">Solo Active Shape Key</h4>
         <p>Toggles Solo Shapekey mode (Only show the active shape key at full value)</p>
 
-
         <!-- 3f. Delete Lower -->
         <h4 id="delete-lower">Delete Lower</h4>
         <p>Deletes the lowest subdivision level of the multires mesh, while preserving the shape keys. Use when the multires mesh base geometry is not enough to make shapekey poses</p>
-		<p><span style="font-size: 1.2em;">⚠️</span> <strong>Note:</strong> Depending on the size of the mesh, this process might take a while. Open the console beforehand if you would like to track the progress (<strong>Window >> Toggle System Console</strong>)</p>
-		<p style="color: #e06b6b;"><span style="font-size: 1.2em;">⚠️</span> Any 'Reshape' method poses will be deleted in the process!</p><p>⠀⠀you can preserve the poses beforehand by using the 'Bake from Multires' function</p>
+        <p><span style="font-size: 1.2em;">⚠️</span> <strong>Note:</strong> Depending on the size of the mesh, this process might take a while. Open the console beforehand if you would like to track the progress (<strong>Window >> Toggle System Console</strong>)</p>
+        <p style="color: #e06b6b;"><span style="font-size: 1.2em;">⚠️</span> Any 'Reshape' method poses will be deleted in the process!</p><p>⠀⠀you can preserve the poses beforehand by using the 'Bake from Multires' function</p>
 
     </div><!-- End of Shape Keys Method note box -->
 
 
-	<h2 id="sync">🔍 4. Multi-Layer/Multi-res Sync</h2>
+    <h2 id="sync">🔍 4. Multi-Layer/Multi-res Sync</h2>
 
     <!-- ==== Sync Summary Box ==== -->
     <div class="note clearfix" style="overflow: hidden;">
 
         <strong>Overview:</strong> The Sync Panel is where the user will create/convert his multi-layer/multi-res respectively. It also makes sure to notify the user if there are any issues that prevents both meshes from syncing.
         <ul>
-		<strong> Multi-layer/Multi-res have to sync in order for conversion to work properly!</strong>
-		</ul>
+        <strong> Multi-layer/Multi-res have to sync in order for conversion to work properly!</strong>
+        </ul>
     </div><!-- End of Summary note box -->
 
 
@@ -883,50 +933,50 @@
         
         <h3 id="quick-poses-reshape"><strong>Sync Panel:</strong></h3>
         
-		
-		<h4 id="info">Multi-res/Multi-Layer Info</h4>
-		<p>Click the question mark ❓ icon on the top right corner of the panel, to output sync info to the console for the current mesh.</p>
-		
-		<!-- 2l. Advanced Operations -->
+        
+        <h4 id="info">Multi-res/Multi-Layer Info</h4>
+        <p>Click the question mark ❓ icon on the top right corner of the panel, to output sync info to the console for the current mesh.</p>
+        
+        <!-- 2l. Advanced Operations -->
         <h3 class="custom_underline" id="multilayer-advanced">Multi-Layer Operations:</h3>
-	
+    
 
         <!-- Create Multi-res -->
         <h4 id="create-multires">Create Multi-res</h4>
         <p>Creates a corresponding multi-res mesh to work with your multi-layer mesh. Only available when no corresponding multi-res mesh is found</p>
-		<p><span style="font-size: 1.2em;">ℹ️</span>  Uses 'Unsubdivide' function from Multires modifier to break down your mesh to the lowest possible sub-d level. If the resulting Multi-res mesh has 0 levels --> the 'Unsubdivide' function failed. Most likely because of bad topology. Retopology will be required.</p>
-		<p><span style="font-size: 1.2em;">⚠️</span> <strong>Note:</strong> Depending on the size of the mesh, this process might take a while. Open the console beforehand if you would like to track the progress (<strong>Window >> Toggle System Console</strong>)</p>
-		
+        <p><span style="font-size: 1.2em;">ℹ️</span>  Uses 'Unsubdivide' function from Multires modifier to break down your mesh to the lowest possible sub-d level. If the resulting Multi-res mesh has 0 levels --> the 'Unsubdivide' function failed. Most likely because of bad topology. Retopology will be required.</p>
+        <p><span style="font-size: 1.2em;">⚠️</span> <strong>Note:</strong> Depending on the size of the mesh, this process might take a while. Open the console beforehand if you would like to track the progress (<strong>Window >> Toggle System Console</strong>)</p>
+        
         <!-- Convert to Multi-res -->
         <h4 id="convert-multires">Convert to Multi-res</h4>
         <p>Converts your multi-layer mesh to its multi-res counterpart, using the 'Reshape' function of the Multires modifier.</p>
-		<p><span style="font-size: 1.2em;">ℹ️</span> Conversion respects the active mesh placement in the outliner</p>
-		
-		<h4 id="switch-multires">Switch to Multi-res</h4>
+        <p><span style="font-size: 1.2em;">ℹ️</span> Conversion respects the active mesh placement in the outliner</p>
+        
+        <h4 id="switch-multires">Switch to Multi-res</h4>
         <p>Switches to the corresponding multi-res mesh without conversion. Only available when there is a desync</p>
-		
-		<h3 class="custom_underline" id="multires-advanced">Multi-res Operations:</h3>
-		<p>Available when working on a mesh with "_multires" suffix in its name</p>
-		
-		<h4>Create Multi-Layer</h4>
+        
+        <h3 class="custom_underline" id="multires-advanced">Multi-res Operations:</h3>
+        <p>Available when working on a mesh with "_multires" suffix in its name</p>
+        
+        <h4>Create Multi-Layer</h4>
         <p>Create a corresponding multi-layer mesh. Only available when no corresponding multi-layer mesh is found</p>
-		
-		<!-- Convert to Multi-Layer -->
+        
+        <!-- Convert to Multi-Layer -->
         <h4 id="convert-multilayer">Switch to Multi-Layer</h4>
         <p>Switches back to Multi-Layer. Responsible for re-syncing Multi-res/layer if there is a level mis-match. Only available when mesh has a multires modifier & a corresponding multi-layer</p>
-		<p><span style="font-size: 1.2em;">ℹ️</span> Operator respects the active mesh placement in the outliner</p>
-		<p>This function runs under 3 different cases:</p>
-		<p><strong>Case 1:</strong></p>
-		<p>Multi-res level = Multi-Layer level - In which case the conversion will be fast and will not take more then a few seconds</p>
-		<p><strong>Case 2:</strong></p>
-		<p>Multi-res level &lt Multi-Layer level - slightly slower then case 1, as the conversion will subdivide the multi-res until it matches the multi-layer level</p>
-		<p><strong>Case 3:</strong></p>
-		<p>Multi-res level &gt Multi-Layer level - the slowest case. Here the Multi-Layer would be reconstructed from the ground up with the appropriate subdivision levels, to properly match the indices order of the multi-res</p>
-		<p><span style="font-size: 1.2em;">⚠️</span> <strong>Note:</strong> Depending on the size of the mesh, this process might take a while. Open the console beforehand if you would like to track the progress (<strong>Window >> Toggle System Console</strong>)</p>
-		<p style="color: #e06b6b;"><span style="font-size: 1.2em;">⚠️</span> Any 'Reshape' method poses will be deleted in the process!</p><p>⠀⠀you can preserve the poses beforehand by using the 'Bake from Multires' function</p>
-		
-		
-	</div>
+        <p><span style="font-size: 1.2em;">ℹ️</span> Operator respects the active mesh placement in the outliner</p>
+        <p>This function runs under 3 different cases:</p>
+        <p><strong>Case 1:</strong></p>
+        <p>Multi-res level = Multi-Layer level - In which case the conversion will be fast and will not take more then a few seconds</p>
+        <p><strong>Case 2:</strong></p>
+        <p>Multi-res level &lt Multi-Layer level - slightly slower then case 1, as the conversion will subdivide the multi-res until it matches the multi-layer level</p>
+        <p><strong>Case 3:</strong></p>
+        <p>Multi-res level &gt Multi-Layer level - the slowest case. Here the Multi-Layer would be reconstructed from the ground up with the appropriate subdivision levels, to properly match the indices order of the multi-res</p>
+        <p><span style="font-size: 1.2em;">⚠️</span> <strong>Note:</strong> Depending on the size of the mesh, this process might take a while. Open the console beforehand if you would like to track the progress (<strong>Window >> Toggle System Console</strong>)</p>
+        <p style="color: #e06b6b;"><span style="font-size: 1.2em;">⚠️</span> Any 'Reshape' method poses will be deleted in the process!</p><p>⠀⠀you can preserve the poses beforehand by using the 'Bake from Multires' function</p>
+        
+        
+    </div>
        
 
 
@@ -939,15 +989,15 @@
         <strong>⚠️ Known Issues:</strong>
         <ul>
             <li><strong>Issue:</strong> Symmetrizing the mesh corrupts the sync with corresponding multi-layer/multi-res counterpart, as well as the multi-layer setup</li>
-			<li><strong>Workaround:</strong> None so far. might create a 'Symmetrize Layer'/'Symmetrize Base Mesh' down the line</li>
-			<li><strong>Issue:</strong> Undo/Redo can get a bit wonky at times, corrupting layers. Over-using sometimes causes a crash</li>
-			<li><strong>Workaround:</strong> Undo back further, until layers get un-corrupted</li> 	
-			<li><strong>Issue:</strong> Shapekeys do not work with Multi-Layer mesh</li>
-			<li><strong>Workaround:</strong> Use the 'Bake to Shapekey' function, or create & edit shapekeys on the Multi-res mesh</li> 
-			
+            <li><strong>Workaround:</strong> None so far. might create a 'Symmetrize Layer'/'Symmetrize Base Mesh' down the line</li>
+            <li><strong>Issue:</strong> Undo/Redo can get a bit wonky at times, corrupting layers. Over-using sometimes causes a crash</li>
+            <li><strong>Workaround:</strong> Undo back further, until layers get un-corrupted</li> 	
+            <li><strong>Issue:</strong> Shapekeys do not work with Multi-Layer mesh</li>
+            <li><strong>Workaround:</strong> Use the 'Bake to Shapekey' function, or create & edit shapekeys on the Multi-res mesh</li> 
+            
         </ul>
     </div>
-	
+    
 
 
     <div class="warning">
@@ -960,7 +1010,7 @@
         - Any Blender errors that come up<br>
         - Fully unclipped images/videos of Blender while the bug occurs
     </div>
-	
+    
     <!-- ============================================================ -->
     <!-- FOOTER -->
     <!-- ============================================================ -->
@@ -972,6 +1022,30 @@
     </p>
 
 </div>
+
+<script>
+    (function() {
+        // Get all toggle elements
+        const toggles = document.querySelectorAll('.toc-toggle');
+        toggles.forEach(function(toggle) {
+            toggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const targetId = this.getAttribute('data-target');
+                const sub = document.getElementById(targetId);
+                if (!sub) return;
+                // toggle open class on sub
+                sub.classList.toggle('open');
+                // toggle open class on toggle itself
+                this.classList.toggle('open');
+            });
+        });
+        // initially open the first level items (optional: you can set all closed)
+        // to keep them closed by default, remove the next lines.
+        // If you want them open, uncomment:
+        // document.querySelectorAll('.toc-sub').forEach(function(el) { el.classList.add('open'); });
+        // document.querySelectorAll('.toc-toggle').forEach(function(el) { el.classList.add('open'); });
+    })();
+</script>
 
 </body>
 </html>
