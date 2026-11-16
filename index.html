@@ -65,6 +65,42 @@
         }
 
         /* ============================================================
+           OUTDATED NOTICE BANNER (NEW — added at top)
+           ============================================================ */
+        .notice-banner {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: #2d1f0c;
+            border-left: 5px solid #f5b342;
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .notice-banner .icon {
+            font-size: 1.9rem;
+            line-height: 1;
+            color: #f5b342;
+            flex-shrink: 0;
+        }
+
+        .notice-banner .message {
+            font-weight: 500;
+            font-size: 1.1rem;
+            letter-spacing: 0.2px;
+            color: #ffde9e;
+        }
+
+        .notice-banner .message strong {
+            color: #ffc85a;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        /* ============================================================
            Typography
            ============================================================ */
 
@@ -514,6 +550,21 @@
                 border: 1px solid #ccc;
                 background: #f9f9f9;
             }
+
+            .notice-banner {
+                background: #fef2e0;
+                border-left: 5px solid #d68b1c;
+                color: #4f3a1a;
+                box-shadow: none;
+            }
+
+            .notice-banner .message {
+                color: #4f3a1a;
+            }
+
+            .notice-banner .message strong {
+                color: #b35e00;
+            }
         }
 
         /* ============================================================
@@ -602,6 +653,25 @@
 
 <div class="container">
 
+    <!-- ============================================================
+         OUTDATED NOTICE BANNER — at the very top
+         ============================================================ -->
+    <div class="notice-banner" role="alert">
+      <span class="icon" aria-hidden="true">⚠️</span>
+      <span class="message">
+        <strong>Outdated</strong> — New documentation coming soon (V1.1.5)
+      </span>
+    </div>
+	
+	    <!-- ============================================================
+         Overview (from new addition)
+         ============================================================ -->
+    <p>
+      This documentation covers the legacy system (v1.0). Some features aren't included yet.</p>
+    <p>Documentation for <strong>V1.1.5</strong>, as well as an overview video that will cover all of its features, will be coming out shortly - and replace this page.
+    </p>
+
+
     <!-- Header -->
     <h1>Simple Sculpt Layers Plus</h1>
     <p style="font-size: 1.2em; color: #5a5a5a;">
@@ -625,6 +695,7 @@
         Provides non-destructive sculpting workflows similar to ZBrush, with support for multi-resolution sculpting,
         quick poses storage, and shape key management.
     </div>
+
 
     <!-- Table of Contents -->
     <div class="toc">
@@ -709,7 +780,7 @@
     <!-- ============================================================ -->
     <!-- 1. INSTALLATION -->
     <!-- ============================================================ -->
-    <h2 id="installation">📦 1. Installation</h2>
+    <h2 id="installation">1. Installation</h2>
     <ol>
         <li>Download the addon (<code>Simple_Sculpt_Layers_Plus.zip</code>)</li>
         <li>In Blender, go to <strong>Edit → Preferences → Add-ons</strong></li>
@@ -723,7 +794,7 @@
     <!-- 2. MULTILAYER -->
     <!-- ============================================================ -->
 
-    <h2 id="multilayer">🧱 2. Multi-layer</h2>
+    <h2 id="multilayer">2. Multi-layer</h2>
 
     <div class="note clearfix" style="overflow: hidden;">
         <img src="Multi-Layer.png" 
@@ -824,7 +895,7 @@
     <!-- ============================================================ -->
     <!-- 3. MULTI-RES -->
     <!-- ============================================================ -->
-    <h2 id="multires">🕺 3. Quick Poses</h2>
+    <h2 id="multires">3. Quick Poses</h2>
 
     <!-- ==== Multi-res Summary Box ==== -->
     <div class="note clearfix" style="overflow: hidden;">
@@ -913,7 +984,7 @@
     </div><!-- End of Shape Keys Method note box -->
 
 
-    <h2 id="sync">🔍 4. Multi-Layer/Multi-res Sync</h2>
+    <h2 id="sync">4. Multi-Layer/Multi-res Sync</h2>
 
     <!-- ==== Sync Summary Box ==== -->
     <div class="note clearfix" style="overflow: hidden;">
@@ -983,7 +1054,7 @@
     <!-- ============================================================ -->
     <!-- 5. BUGS & ISSUES -->
     <!-- ============================================================ -->
-    <h2 id="bugs-issues">🐛 4. Bugs &amp; Issues</h2>
+    <h2 id="bugs-issues">4. Bugs &amp; Issues</h2>
 
     <div class="error">
         <strong>⚠️ Known Issues:</strong>
